@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etiya.ReCapProject.business.abstracts.BrandService;
+import com.etiya.ReCapProject.business.constants.Messages;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.BrandDao;
 import com.etiya.ReCapProject.entities.concretes.Brand;
+import com.etiya.ReCapProject.entities.requests.CreateBrandRequest;
+import com.etiya.ReCapProject.entities.requests.DeleteBrandRequest;
+import com.etiya.ReCapProject.entities.requests.UpdateBrandRequest;
 
 @Service
 public class BrandManager implements BrandService{
@@ -31,28 +35,37 @@ public class BrandManager implements BrandService{
 
 	@Override
 	public DataResult<Brand> getById(int brandId) {
-		return new SuccessDataResult<Brand>(this.brandDao.getById(brandId));
+		return new SuccessDataResult<Brand> (this.brandDao.getById(brandId));
 	}
 
 	@Override
-	public Result add(Brand brand) {
-		this.brandDao.save(brand);
-		return new SuccessResult("Marka eklendi");
+	public Result add(CreateBrandRequest createBrandRequest) {
+		Brand brand= new Brand();
+		brand.setBrandName(createBrandRequest.getBrandName());
 		
+		this.brandDao.save(brand);
+		return new SuccessResult(Messages.ADD);
+
 	}
 
 	@Override
-	public Result delete(Brand brand) {
+	public Result delete(DeleteBrandRequest deleteBrandRequest) {
+		Brand brand= new Brand();
+		brand.setBrandName(deleteBrandRequest.getBrandName());
+		brand.setBrandId(deleteBrandRequest.getBrandId());
+		 
 		this.brandDao.delete(brand);
-		return new SuccessResult("Marka silindi");
-		
+		return new SuccessResult(Messages.DELETE);
 	}
 
 	@Override
-	public Result update(Brand brand) {
+	public Result update(UpdateBrandRequest updateBrandRequest) {
+		Brand brand= new Brand();
+		brand.setBrandName(updateBrandRequest.getBrandName());
+		brand.setBrandId(updateBrandRequest.getBrandId());
+		 
 		this.brandDao.save(brand);
-		return new SuccessResult("Marka güncellendi");
-		
+		return new SuccessResult(Messages.UPDATE);
 	}
 	
 }

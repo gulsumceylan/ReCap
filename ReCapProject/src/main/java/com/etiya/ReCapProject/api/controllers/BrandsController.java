@@ -2,6 +2,8 @@ package com.etiya.ReCapProject.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +16,14 @@ import com.etiya.ReCapProject.business.abstracts.BrandService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.concretes.Brand;
+import com.etiya.ReCapProject.entities.requests.CreateBrandRequest;
+import com.etiya.ReCapProject.entities.requests.DeleteBrandRequest;
+import com.etiya.ReCapProject.entities.requests.UpdateBrandRequest;
 
 @RestController
 @RequestMapping("/api/brands")
 public class BrandsController {
+	
 	private BrandService brandService;
 
 	@Autowired
@@ -26,31 +32,31 @@ public class BrandsController {
 		this.brandService = brandService;
 	}
 	
+	@PostMapping("/add")
+	public Result add(@Valid @RequestBody CreateBrandRequest createBrandRequest) {
+		
+	return this.brandService.add(createBrandRequest);
+	}
+	
 	@GetMapping("/getall")
-	public DataResult<List<Brand>> getAll() {
+	public DataResult<List<Brand>> getAll(){
+		
 		return this.brandService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<Brand> getById(int brandId) {
+	@GetMapping("/getById")
+	public DataResult<Brand> getById(int brandId){
 		return this.brandService.getById(brandId);
 	}
 	
-	@PostMapping("/add")
-	public Result add(@RequestBody Brand brand) {
-		return this.brandService.add(brand);
-	}
-	
 	@PostMapping("/update")
-	public Result update(@RequestBody Brand brand) {
-		return this.brandService.update(brand);
+	public Result update(@Valid @RequestBody UpdateBrandRequest updateBrandRequest) {
+		return this.brandService.update(updateBrandRequest);
 	}
 	
 	@PutMapping("/delete")
-	public Result delete(@RequestBody Brand brand) {
-		return this.brandService.delete(brand);
+	public Result delete(@Valid @RequestBody DeleteBrandRequest deleteBrandRequest) {
+		return this.brandService.delete(deleteBrandRequest);
 	}
-	
-	
 	
 }

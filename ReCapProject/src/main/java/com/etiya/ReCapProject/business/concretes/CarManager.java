@@ -6,13 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.etiya.ReCapProject.business.abstracts.CarService;
+import com.etiya.ReCapProject.business.constants.Messages;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.CarDao;
+import com.etiya.ReCapProject.entities.concretes.Brand;
 import com.etiya.ReCapProject.entities.concretes.Car;
+import com.etiya.ReCapProject.entities.concretes.Color;
 import com.etiya.ReCapProject.entities.dtos.CarDetailDto;
+import com.etiya.ReCapProject.entities.requests.CreateCarRequest;
+import com.etiya.ReCapProject.entities.requests.DeleteCarRequest;
+import com.etiya.ReCapProject.entities.requests.UpdateCarRequest;
 
 @Service
 public class CarManager implements CarService {
@@ -31,33 +37,66 @@ public class CarManager implements CarService {
 
 	@Override
 	public DataResult<Car> getById(int carId) {
+		
 		return new SuccessDataResult<Car>(this.carDao.getById(carId));
-	}
-
-	@Override
-	public Result add(Car car) {
-		this.carDao.save(car);
-		return new SuccessResult("Araba eklendi");
-		
-	}
-
-	@Override
-	public Result delete(Car car) {
-		this.carDao.delete(car);
-		return new SuccessResult("Araba silindi");
-		
-	}
-
-	@Override
-	public Result update(Car car) {
-		this.carDao.save(car);
-		return new SuccessResult("Araba güncellendi");
-		
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getCarDetails() {
 		return new SuccessDataResult<List<CarDetailDto>>(this.carDao.getCarWithBrandAndColorDetails());
+	}
+
+	@Override
+	public Result add(CreateCarRequest createCarRequest) {
+		
+		Brand brand=new Brand();
+		brand.setBrandId(createCarRequest.getBrandId());
+		
+		Color color=new Color();
+		color.setColorId(createCarRequest.getColorId());
+		
+		Car car= new Car();
+		car.setCarName(createCarRequest.getCarName());
+		car.setBrand(brand);
+		car.setColor(color);
+		car.setDailyPrice(createCarRequest.getDailyPrice());
+		car.setDescription(createCarRequest.getDescription());
+		car.setModelYear(createCarRequest.getModelYear());
+			
+		 this.carDao.save(car);
+		 return new SuccessResult(Messages.ADD);
+	}
+
+	@Override
+	public Result delete(DeleteCarRequest deleteCarRequest) {
+		
+		Car car= new Car();
+		car.setCarId(deleteCarRequest.getCarId());
+		car.setCarName(deleteCarRequest.getCarName());
+		
+		this.carDao.delete(car);
+		 return new SuccessResult(Messages.DELETE);
+	}
+
+	@Override
+	public Result update(UpdateCarRequest updateCarRequest) {
+		Brand brand=new Brand();
+		brand.setBrandId(updateCarRequest.getBrandId());
+		
+		Color color=new Color();
+		color.setColorId(updateCarRequest.getColorId());
+		
+		Car car= new Car();
+		car.setCarId(updateCarRequest.getCarId());
+		car.setCarName(updateCarRequest.getCarName());
+		car.setBrand(brand);
+		car.setColor(color);
+		car.setDailyPrice(updateCarRequest.getDailyPrice());
+		car.setDescription(updateCarRequest.getDescription());
+		car.setModelYear(updateCarRequest.getModelYear());
+			
+		 this.carDao.save(car);
+		 return new SuccessResult(Messages.UPDATE);
 	}
 	
 }

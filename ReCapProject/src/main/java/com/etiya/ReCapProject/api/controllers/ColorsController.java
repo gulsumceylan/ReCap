@@ -14,11 +14,13 @@ import com.etiya.ReCapProject.business.abstracts.ColorService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.concretes.Color;
+import com.etiya.ReCapProject.entities.requests.CreateColorRequest;
+import com.etiya.ReCapProject.entities.requests.DeleteColorRequest;
+import com.etiya.ReCapProject.entities.requests.UpdateColorRequest;
 
 @RestController
 @RequestMapping("/api/colors")
 public class ColorsController {
-
 	private ColorService colorService;
 
 	@Autowired
@@ -27,28 +29,31 @@ public class ColorsController {
 		this.colorService = colorService;
 	}
 	
+	@PostMapping("/add")
+	public Result add(@RequestBody CreateColorRequest createColorRequest) {
+		
+	 return this.colorService.add(createColorRequest);
+	}
+	
 	@GetMapping("/getall")
-	public DataResult<List<Color>> getAll() {
+	public DataResult<List<Color>> getAll(){
+		
 		return this.colorService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<Color> getById(int colorId) {
+	@GetMapping("/getById")
+	public DataResult<Color> getById( int colorId){
 		return this.colorService.getById(colorId);
 	}
 	
-	@PostMapping("/add")
-	public Result add(@RequestBody Color color) {
-		return this.colorService.add(color);
-	}
-	
 	@PostMapping("/update")
-	public Result update(@RequestBody Color color) {
-		return this.colorService.update(color);
+	public Result update(@RequestBody UpdateColorRequest updateColorRequest) {
+		return this.colorService.update(updateColorRequest);
 	}
 	
 	@PutMapping("/delete")
-	public Result delete(@RequestBody Color color) {
-		return this.colorService.delete(color);
+	public Result delete(@RequestBody DeleteColorRequest deleteColorRequest) {
+		return this.colorService.delete(deleteColorRequest);
 	}
+	
 }
