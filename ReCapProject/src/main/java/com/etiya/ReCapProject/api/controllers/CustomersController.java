@@ -44,7 +44,7 @@ public class CustomersController {
 		return this.customerService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<Customer> getById(int customerId){
 		return this.customerService.getById(customerId);
 	}

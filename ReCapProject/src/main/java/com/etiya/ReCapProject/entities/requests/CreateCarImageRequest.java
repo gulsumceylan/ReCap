@@ -11,20 +11,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateCarRequest {
+public class CreateCarImageRequest {
+
 	@NotNull(message = "Boş olamaz")
 	private int carId;
 	
-	private String carName;
-	
-	private int brandId;
-	
-	private int colorId;
 
-	private int modelYear;
-
-	private double dailyPrice;
-
-	private String description;
-	
 }

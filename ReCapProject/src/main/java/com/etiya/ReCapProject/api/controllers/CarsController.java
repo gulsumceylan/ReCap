@@ -46,7 +46,7 @@ public class CarsController {
 		return this.carService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<Car> getById( int carId){
 		return this.carService.getById(carId);
 	}

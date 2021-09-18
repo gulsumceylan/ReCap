@@ -1,5 +1,6 @@
 package com.etiya.ReCapProject.entities.requests;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -11,20 +12,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateCarRequest {
+public class UpdateCarImageRequest {
+	@NotNull(message = "Boş olamaz")
+	private int id;
+	
+	@NotBlank
+	@NotNull(message = "Boş olamaz")
+	private String imagePath;
+	
 	@NotNull(message = "Boş olamaz")
 	private int carId;
-	
-	private String carName;
-	
-	private int brandId;
-	
-	private int colorId;
 
-	private int modelYear;
-
-	private double dailyPrice;
-
-	private String description;
-	
 }

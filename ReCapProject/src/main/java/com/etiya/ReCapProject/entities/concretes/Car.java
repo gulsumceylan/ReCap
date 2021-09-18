@@ -55,6 +55,9 @@ public class Car {
 	@JsonIgnore
 	private List<Rental> rentals;
 	
+	@OneToMany(mappedBy = "car")
+	private List<CarImage> carImages;
+	
 }
 
 

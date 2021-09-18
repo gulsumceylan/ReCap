@@ -1,7 +1,6 @@
 package com.etiya.ReCapProject.business.concretes;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +53,7 @@ public class CarManager implements CarService {
 		
 		Color color=new Color();
 		color.setColorId(createCarRequest.getColorId());
-		
+
 		Car car= new Car();
 		car.setCarName(createCarRequest.getCarName());
 		car.setBrand(brand);
@@ -85,7 +84,7 @@ public class CarManager implements CarService {
 		
 		Color color=new Color();
 		color.setColorId(updateCarRequest.getColorId());
-		
+	
 		Car car= new Car();
 		car.setCarId(updateCarRequest.getCarId());
 		car.setCarName(updateCarRequest.getCarName());

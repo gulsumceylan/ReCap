@@ -21,4 +21,7 @@ public class Messages {
     
     public static final String NOT_DELİVERED = "Araç kiralamaz. Henüz teslim edilmedi";
     
+    public static final String LIMIT = "Limiti aştınız";
+    
+    public static final String SUCCESS = "Başarılı";
 }

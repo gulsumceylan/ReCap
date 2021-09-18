@@ -44,7 +44,7 @@ public class UsersController {
 		return this.userService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<ApplicationUser> getById(int userId){
 		return this.userService.getById(userId);
 	}

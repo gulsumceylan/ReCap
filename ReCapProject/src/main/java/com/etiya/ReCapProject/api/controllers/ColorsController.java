@@ -41,7 +41,7 @@ public class ColorsController {
 		return this.colorService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<Color> getById( int colorId){
 		return this.colorService.getById(colorId);
 	}

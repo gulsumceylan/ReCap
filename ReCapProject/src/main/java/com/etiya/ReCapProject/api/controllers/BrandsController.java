@@ -44,7 +44,7 @@ public class BrandsController {
 		return this.brandService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<Brand> getById(int brandId){
 		return this.brandService.getById(brandId);
 	}

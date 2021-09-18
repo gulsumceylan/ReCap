@@ -44,7 +44,7 @@ public class RentalsController {
 		return this.rentalService.getAll();
 	}
 	
-	@GetMapping("/getById")
+	@GetMapping("/getbyid")
 	public DataResult<Rental> getById(int rentalId){
 		return this.rentalService.getById(rentalId);
 	}
