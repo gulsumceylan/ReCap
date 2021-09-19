@@ -1,6 +1,7 @@
 package com.etiya.ReCapProject.business.concretes;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -96,13 +97,7 @@ public class CarImageManager implements CarImageService {
 	
 	@Override
 	public DataResult<List<CarImage>> getByCarId(int carId) {
-		var result = BusinessRules.run(ifCarImageIsNullAddLogo(carId));
-
-		if (result != null) {
-			return result;
-		}
-		
-		return new SuccessDataResult<List<CarImage>>(this.carImageDao.getByCar_CarId(carId));
+		return new SuccessDataResult<List<CarImage>>(this.ifCarImageIsNullAddLogo(carId));
 	}
 
 	private Result checkIfCarImageLimitExceeded(int carId, int limit) {
@@ -112,7 +107,7 @@ public class CarImageManager implements CarImageService {
 		return new SuccessResult(Messages.SUCCESS);
 	}
 	
-	private DataResult<List<CarImage>> ifCarImageIsNullAddLogo(int carId) {
+	private List<CarImage> ifCarImageIsNullAddLogo(int carId) {
 		if (this.carImageDao.getByCar_CarId(carId).isEmpty()) {
 
 			Car car = new Car();
@@ -120,12 +115,16 @@ public class CarImageManager implements CarImageService {
 
 			String imagePath = "carImages/logo.jpg";
 
-			CarImage carImage = new CarImage();
+			CarImage carImage=new CarImage();
 			carImage.setCar(car);
 			carImage.setImagePath(imagePath);
-
-			this.carImageDao.save(carImage);
+	
+			List<CarImage> carImages=new ArrayList<CarImage>();
+			carImages.add(carImage);
+			
+			return carImages;
+		    
 		}
-		return new SuccessDataResult<List<CarImage>>(this.carImageDao.getByCar_CarId(carId));
+		return new ArrayList<CarImage>(this.carImageDao.getByCar_CarId(carId));
 	}
 }

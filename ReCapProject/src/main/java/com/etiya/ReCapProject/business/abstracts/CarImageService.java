@@ -18,4 +18,5 @@ public interface CarImageService {
 	Result update(UpdateCarImageRequest updateCarImageRequest);
 	
 	DataResult<List<CarImage>> getByCarId(int carId);
+	
 }

@@ -16,5 +16,6 @@ public class CreateCarImageRequest {
 	@NotNull(message = "Boş olamaz")
 	private int carId;
 	
+	private String imagePath;
 
 }

@@ -16,16 +16,4 @@ public class BusinessRules {
 		}
 		return null;
 	}
-	
-	public static DataResult run (DataResult... logics)
-	{
-		for (DataResult logic : logics)  {
-			
-			if(!logic.isSuccess() )
-			{
-				return logic;
-			}	
-		}
-		return null;
-	}
 }
