@@ -11,13 +11,16 @@ import com.etiya.ReCapProject.entities.requests.DeleteCarRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateCarRequest;
 
 public interface CarService {
-	
+
 	DataResult<List<Car>> getAll();
 	DataResult<Car> getById(int carId);
 	Result add(CreateCarRequest createCarRequest);
-	Result delete(DeleteCarRequest deleteCarRequest);
-	Result update(UpdateCarRequest updateCarRequest);
-	
+    Result delete(DeleteCarRequest deleteCarRequest);
+    Result update(UpdateCarRequest updateCarRequest);
+
 	DataResult<List<CarDetailDto>> getCarDetails();
 
+	DataResult<List<Car>> getByBrandId(int brandId);
+	DataResult<List<Car>> getByColorId(int colorId);
+	
 }

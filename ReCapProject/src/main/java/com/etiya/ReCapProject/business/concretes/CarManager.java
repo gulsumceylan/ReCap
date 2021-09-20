@@ -97,5 +97,15 @@ public class CarManager implements CarService {
 		 this.carDao.save(car);
 		 return new SuccessResult(Messages.UPDATE);
 	}
+
+	@Override
+	public DataResult<List<Car>> getByBrandId(int brandId) {
+		return new SuccessDataResult<List<Car>>(this.carDao.getByBrand_BrandId(brandId));
+	}
+
+	@Override
+	public DataResult<List<Car>> getByColorId(int colorId) {
+		return new SuccessDataResult<List<Car>>(this.carDao.getByColor_ColorId(colorId));
+	}
 	
 }

@@ -19,5 +19,11 @@ public interface CarDao extends JpaRepository<Car, Integer> {
 			+ " Inner Join c.color co")  
 	List<CarDetailDto> getCarWithBrandAndColorDetails();
 	
+	
+	List<Car> getByBrand_BrandId(int brandId);
+	
+	List<Car> getByColor_ColorId(int colorId);
+	
+	
 		
 }
