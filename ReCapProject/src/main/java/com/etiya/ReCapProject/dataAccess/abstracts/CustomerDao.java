@@ -6,4 +6,5 @@ import com.etiya.ReCapProject.entities.concretes.Customer;
 
 public interface CustomerDao extends JpaRepository<Customer, Integer> {
 
+	
 }

@@ -1,6 +1,4 @@
 package com.etiya.ReCapProject.core.business;
-
-import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 
 public class BusinessRules {

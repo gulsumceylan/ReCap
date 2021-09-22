@@ -24,4 +24,17 @@ public class Messages {
     public static final String LIMIT = "Limiti aştınız";
     
     public static final String SUCCESS = "Başarılı";
+    
+    public static final String Login = "Giriş yapıldı.";
+    public static final String Register = "Kayıt olundu";
+    public static final String ExistsUser = "Bu email kullanımda";
+    public static final String WrongPassword = "Hatalı şifre";
+    public static final String UserNotFound = "Kullanıcı bulunamadı";
+    
+    public static final String Calculated = "Findeks puanı hesaplandı";
+    public static final String CustomerCreditScoreNotEnoughtToRentCar = "Findeks puanınız yetmemektedir.";
+    
+    public static final String FormatError = "Fotoğraflarınızı png formatında yükleyiniz.";
+    
+    
 }

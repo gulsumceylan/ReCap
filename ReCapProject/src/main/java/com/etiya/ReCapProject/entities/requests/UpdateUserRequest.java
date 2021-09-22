@@ -20,16 +20,6 @@ public class UpdateUserRequest {
 	
 	@NotBlank(message = "Boş olamaz")
 	@NotNull
-	@Size(min=2, max=30)
-	private String firstName;
-	
-	@Size(min=2, max=30)
-	@NotBlank(message = "Boş olamaz")
-	@NotNull
-	private String lastName;
-	
-	@NotBlank(message = "Boş olamaz")
-	@NotNull
 	@Email
 	private String email;
 	

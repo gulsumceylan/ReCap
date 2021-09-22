@@ -13,6 +13,5 @@ import lombok.Setter;
 public class DeleteUserRequest {
 	private int id;
 
-	private String firstName;
 	
 }

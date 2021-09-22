@@ -13,5 +13,4 @@ public class DeleteColorRequest {
 
 	private int colorId;
 
-	private String colorName;
 }

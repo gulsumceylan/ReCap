@@ -35,5 +35,10 @@ public class CreateCarRequest {
 	@NotNull
 	private String description;
 	
+	@NotBlank(message = "Boş olamaz")
+	@NotNull
+	private int minFindexScore;
+	
+	
 	
 }

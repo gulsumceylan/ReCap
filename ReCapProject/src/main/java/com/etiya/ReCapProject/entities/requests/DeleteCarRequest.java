@@ -12,5 +12,5 @@ import lombok.Setter;
 public class DeleteCarRequest {
 	private int carId;
 	
-	private String carName;
+
 }

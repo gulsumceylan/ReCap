@@ -43,6 +43,9 @@ public class Car {
 	@Column(name="description")
 	private String description;
 	
+	@Column(name="min_findex_score")
+	private int minFindexScore ;
+	
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;

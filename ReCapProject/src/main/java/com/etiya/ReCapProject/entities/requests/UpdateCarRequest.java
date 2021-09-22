@@ -1,5 +1,4 @@
 package com.etiya.ReCapProject.entities.requests;
-
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -26,5 +25,7 @@ public class UpdateCarRequest {
 	private double dailyPrice;
 
 	private String description;
+	
+	private int minFindexScore;
 	
 }

@@ -32,10 +32,16 @@ public class RentalsController {
 		this.rentalService = rentalService;
 	}
 	
-	@PostMapping("/add")
-	public Result add(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
+	@PostMapping("/addforindividulacustomer")
+	public Result addForIndividualCustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
 		
-	return this.rentalService.add(createRentalRequest);
+	return this.rentalService.addForIndividualCustomer(createRentalRequest);
+	}
+	
+	@PostMapping("/addforcorporatecustomer")
+	public Result addForCorporateCustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
+		
+	return this.rentalService.addForCorporateCustomer(createRentalRequest);
 	}
 	
 	@GetMapping("/getall")
