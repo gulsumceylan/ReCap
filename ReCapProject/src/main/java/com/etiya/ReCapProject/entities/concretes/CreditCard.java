@@ -43,7 +43,6 @@ public class CreditCard {
 	private String expiryDate; 
 	
 	@Column(name="cvv")
-	@Size(min=3, max=3)
 	private String cvv;
 	
 	@ManyToOne

@@ -22,7 +22,6 @@ public class CreateCreditCardRequest {
 	private String expiryDate;
 
 	@NotNull
-	@Size(min = 3, max = 3)
 	private String cvv;
 
 	@NotNull
