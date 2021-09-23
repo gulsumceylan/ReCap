@@ -176,4 +176,6 @@ public class RentalManager implements RentalService {
 		
 		return new SuccessResult();
 	}
+	
+	
 }

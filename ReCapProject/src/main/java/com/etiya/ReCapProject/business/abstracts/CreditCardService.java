@@ -15,5 +15,7 @@ public interface CreditCardService {
 	DataResult<CreditCard> getById(int creditCardId);
 	Result add(CreateCreditCardRequest createCreditCardRequest);
 	Result delete(DeleteCreditCardRequest deleteCreditCardRequest);
+	
+	DataResult<List<CreditCard>> getByCustomerId(int customerId);
 
 }

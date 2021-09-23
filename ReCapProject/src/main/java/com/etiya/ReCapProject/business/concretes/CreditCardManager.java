@@ -67,4 +67,11 @@ public class CreditCardManager implements CreditCardService{
 		return new SuccessResult(Messages.DELETE);
 	}
 
+	@Override
+	public DataResult<List<CreditCard>> getByCustomerId(int customerId) {
+		return new SuccessDataResult<List<CreditCard>>(this.creditCardDao.getByCustomer_Id(customerId));
+	}
+	
+	
+
 }

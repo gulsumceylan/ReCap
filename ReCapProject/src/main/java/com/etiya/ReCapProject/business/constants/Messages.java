@@ -36,5 +36,8 @@ public class Messages {
     
     public static final String FormatError = "Fotoğraflarınızı png formatında yükleyiniz.";
     
+    public static final String ExistsBrand = "Bu marka zaten var";
+    public static final String ExistsColor = "Bu renk zaten var";
+    
     
 }
