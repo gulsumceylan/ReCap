@@ -41,5 +41,9 @@ public class Messages {
     
     public static final String InvalidCreditCard = "Geçersiz kredi kartı";
     
+    public static final String NotAvaliableCar = "Araba kirada.Bakıma gönderilemez.";
+    
+    public static final String InCarMaintenance = "Araba bakımda.Kiralanamaz.";
+    
     
 }

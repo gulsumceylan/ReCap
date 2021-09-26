@@ -45,7 +45,7 @@ public class Car {
 	
 	@Column(name="min_findex_score")
 	private int minFindexScore ;
-	
+		
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
@@ -60,6 +60,12 @@ public class Car {
 	
 	@OneToMany(mappedBy = "car")
 	private List<CarImage> carImages;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "car")
+	private List<Maintenance> maintenances;
+	
+	
 	
 }
 

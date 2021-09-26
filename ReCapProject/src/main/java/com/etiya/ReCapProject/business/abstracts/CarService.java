@@ -23,6 +23,6 @@ public interface CarService {
 	DataResult<List<Car>> getByBrandId(int brandId);
 	DataResult<List<Car>> getByColorId(int colorId);
 	
-	
+	DataResult<List<Car>> getAvailableCars();
 	
 }

@@ -34,4 +34,6 @@ public class CreateCorporateCustomerRequest {
 	@NotBlank(message = "Boş olamaz")
 	@NotNull
 	private String password;
+	
+	
 }
