@@ -86,26 +86,31 @@ public class CarImageManager implements CarImageService{
 		
 		
 		this.carImageDao.save(carImage);
-		return new SuccessResult(Messages.ADD) ;
+		return new SuccessResult(Messages.CarImageAdded) ;
 	}
 
 	@Override
 	public Result delete(DeleteCarImageRequest deleteCarImageRequest) {
-		Car car = new Car();
-		car.setCarId(deleteCarImageRequest.getCarId());
-		
-		
 		CarImage carImage = new CarImage();
 		
 		carImage.setId(deleteCarImageRequest.getId());
-		carImage.setCar(car);
-		
+
 		this.carImageDao.delete(carImage);
-		return new SuccessResult(Messages.DELETE);
+		return new SuccessResult(Messages.CarImageDeleted);
 	}
 
 	@Override
 	public Result update(UpdateCarImageRequest updateCarImageRequest) throws IOException {
+		
+		var result = BusinessRules.run(checkIfCarImageLimitExceeded(updateCarImageRequest.getCarId(),5),
+				checkImageType(updateCarImageRequest.getFile()),checkCarImageIsNull(updateCarImageRequest.getFile()));
+
+		if (result != null) {
+			return result;
+		}
+			
+		Car car = new Car();
+		car.setCarId(updateCarImageRequest.getCarId());
 		
 		LocalDate date = LocalDate.now();
 		String imagePath = UUID.randomUUID().toString();
@@ -117,17 +122,13 @@ public class CarImageManager implements CarImageService{
 		FileOutputStream fileOutpuStream = new FileOutputStream(myFile);
 		fileOutpuStream.write(updateCarImageRequest.getFile().getBytes());
 		fileOutpuStream.close();
-		
-		Car car = new Car();
-		car.setCarId(updateCarImageRequest.getCarId());
-		
+			
 		CarImage carImage = new CarImage();
 		carImage.setImagePath(myFile.toString());
 		carImage.setDate(date);
-		carImage.setCar(car);
 				
 		this.carImageDao.save(carImage);
-		return new SuccessResult(Messages.UPDATE) ;
+		return new SuccessResult(Messages.CarImageUpdated) ;
 	}
 	
 	@Override

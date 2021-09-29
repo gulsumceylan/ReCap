@@ -15,13 +15,18 @@ import lombok.Setter;
 public class UpdateRentalRequest {
 	@NotNull(message = "Boş olamaz")
 	private int id;
-	
-	private String carName;
-	
+		
 	private int carId;
+	
+	@NotNull(message = "Boş olamaz")
+	private int customerId;
 
 	@NotNull(message = "Boş olamaz")
 	private Date rentDate;
 
 	private Date returnDate;
+
+	@NotNull(message = "Boş olamaz")
+	private String returnLocation;
+
 }

@@ -70,12 +70,16 @@ public class CarManager implements CarService {
 		car.setCarName(createCarRequest.getCarName());
 		car.setBrand(brand);
 		car.setColor(color);
+		car.setCity(createCarRequest.getCity());
 		car.setDailyPrice(createCarRequest.getDailyPrice());
 		car.setDescription(createCarRequest.getDescription());
 		car.setModelYear(createCarRequest.getModelYear());
+		car.setMinFindexScore(createCarRequest.getMinFindexScore());
+		car.setKm(createCarRequest.getKm());
+		car.setAvailable(true);
 
 		this.carDao.save(car);
-		return new SuccessResult(Messages.ADD);
+		return new SuccessResult(Messages.CarAdded);
 	}
 
 	@Override
@@ -85,7 +89,7 @@ public class CarManager implements CarService {
 		car.setCarId(deleteCarRequest.getCarId());
 
 		this.carDao.delete(car);
-		return new SuccessResult(Messages.DELETE);
+		return new SuccessResult(Messages.CarDeleted);
 	}
 
 	@Override
@@ -101,12 +105,15 @@ public class CarManager implements CarService {
 		car.setCarName(updateCarRequest.getCarName());
 		car.setBrand(brand);
 		car.setColor(color);
+		car.setCity(updateCarRequest.getCity());
 		car.setDailyPrice(updateCarRequest.getDailyPrice());
 		car.setDescription(updateCarRequest.getDescription());
 		car.setModelYear(updateCarRequest.getModelYear());
+		car.setMinFindexScore(updateCarRequest.getMinFindexScore());
+		car.setKm(updateCarRequest.getKm());
 
 		this.carDao.save(car);
-		return new SuccessResult(Messages.UPDATE);
+		return new SuccessResult(Messages.CarUpdated);
 	}
 
 	@Override
@@ -117,6 +124,11 @@ public class CarManager implements CarService {
 	@Override
 	public DataResult<List<Car>> getByColorId(int colorId) {
 		return new SuccessDataResult<List<Car>>(this.carDao.getByColor_ColorId(colorId));
+	}
+
+	@Override
+	public DataResult<List<Car>> getByCity(String city) {
+		return new SuccessDataResult<List<Car>>(this.carDao.getByCity(city));
 	}
 
 }

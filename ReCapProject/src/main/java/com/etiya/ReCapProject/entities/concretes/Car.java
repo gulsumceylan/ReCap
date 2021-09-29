@@ -46,6 +46,15 @@ public class Car {
 	@Column(name="min_findex_score")
 	private int minFindexScore ;
 		
+	@Column(name="city")
+	private String city;
+	
+	@Column(name="km")
+	private int km; 
+	
+	@Column(name="is_available" , columnDefinition = "boolean default true")
+	private boolean isAvailable;
+	
 	@ManyToOne
 	@JoinColumn(name = "brand_id")
 	private Brand brand;
@@ -58,12 +67,17 @@ public class Car {
 	@JsonIgnore
 	private List<Rental> rentals;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "car")
 	private List<CarImage> carImages;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "car")
 	private List<Maintenance> maintenances;
+	
+	@OneToMany(mappedBy = "car")
+	@JsonIgnore
+	private List<DamageRecord> damageRecords;
 	
 	
 	

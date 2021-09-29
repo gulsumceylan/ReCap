@@ -11,8 +11,4 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DeleteRentalRequest {
 	private int id;
-
-	private int carId;
-	
-
 }

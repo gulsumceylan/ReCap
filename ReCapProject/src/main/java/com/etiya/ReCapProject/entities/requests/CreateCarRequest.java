@@ -38,6 +38,12 @@ public class CreateCarRequest {
 	@NotNull
 	private int minFindexScore;
 	
+	@NotNull
+	private String city;
+	
+	@NotNull
+	private int km; 
+	
 	
 	
 }

@@ -8,11 +8,8 @@ import com.etiya.ReCapProject.business.constants.Messages;
 import com.etiya.ReCapProject.core.business.BusinessRules;
 import com.etiya.ReCapProject.core.utilities.results.ErrorResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
-import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.UserDao;
-import com.etiya.ReCapProject.entities.concretes.ApplicationUser;
-import com.etiya.ReCapProject.entities.dtos.UpdateUserProfileDto;
 import com.etiya.ReCapProject.entities.requests.LoginRequest;
 
 @Service
@@ -35,27 +32,14 @@ public class AuthManager implements AuthService {
 		if (result != null) {
 			return result;
 		}
-        return new SuccessDataResult<ApplicationUser>(Messages.Login);
+        return new SuccessResult(Messages.Login);
 		
-	}
-	
-	@Override
-	public Result updateUserProfile(UpdateUserProfileDto updateUserProfileDto) {
-		
-		ApplicationUser applicationUser=new ApplicationUser();
-		applicationUser.setId(updateUserProfileDto.getId());
-		applicationUser.setEmail(updateUserProfileDto.getEmail());
-		applicationUser.setPassword(updateUserProfileDto.getPassword());
-		
-		this.userDao.save(applicationUser);
-				
-		return new SuccessResult(Messages.UPDATE);
 	}
 	
 	private Result checkToEmail(String email) {
 		 if (this.userDao.getByEmail(email)==null)
          {
-             return new ErrorResult(Messages.UserNotFound);
+             return new ErrorResult(Messages.IncorrectEntry);
          }	 
 		 return new SuccessResult();
 	}
@@ -63,7 +47,7 @@ public class AuthManager implements AuthService {
 	private Result checkToPassword(String email,String password) {
 		 if (this.userDao.getByEmail(email)!=this.userDao.getByPassword(password))
         {
-            return new ErrorResult(Messages.WrongPassword);
+            return new ErrorResult(Messages.IncorrectEntry);
         }	 
 		 return new SuccessResult();
 	}

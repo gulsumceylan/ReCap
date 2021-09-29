@@ -53,7 +53,7 @@ public class BrandManager implements BrandService{
 		brand.setBrandName(createBrandRequest.getBrandName());
 		
 		this.brandDao.save(brand);
-		return new SuccessResult(Messages.ADD);
+		return new SuccessResult(Messages.BrandAdded);
 
 	}
 
@@ -63,7 +63,7 @@ public class BrandManager implements BrandService{
 		brand.setBrandId(deleteBrandRequest.getBrandId());
 		 
 		this.brandDao.delete(brand);
-		return new SuccessResult(Messages.DELETE);
+		return new SuccessResult(Messages.BrandDeleted);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class BrandManager implements BrandService{
 		brand.setBrandId(updateBrandRequest.getBrandId());
 		 
 		this.brandDao.save(brand);
-		return new SuccessResult(Messages.UPDATE);
+		return new SuccessResult(Messages.BrandUpdated);
 	}
 	
 	private Result checkBrandName(String brandName) {

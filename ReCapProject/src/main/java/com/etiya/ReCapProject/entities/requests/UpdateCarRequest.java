@@ -27,5 +27,9 @@ public class UpdateCarRequest {
 	private String description;
 	
 	private int minFindexScore;
+
+	private String city;
+	
+	private int km; 
 	
 }

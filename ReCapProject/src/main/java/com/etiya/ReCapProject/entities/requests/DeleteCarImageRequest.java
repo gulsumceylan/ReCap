@@ -15,7 +15,4 @@ public class DeleteCarImageRequest {
 	@NotNull(message = "Boş olamaz")
 	private int id;
 	
-	@NotNull(message = "Boş olamaz")
-	private int carId;
-
 }

@@ -1,6 +1,4 @@
 package com.etiya.ReCapProject.entities.requests;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -18,11 +16,6 @@ public class UpdateCarImageRequest {
 	@NotNull(message = "Boş olamaz")
 	private int id;
 	
-	@NotBlank
-	@NotNull(message = "Boş olamaz")
-	private String imagePath;
-	
-	@NotNull(message = "Boş olamaz")
 	private int carId;
 	
 	private MultipartFile file;

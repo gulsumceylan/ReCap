@@ -80,4 +80,11 @@ public class CarsController {
 	public DataResult<List<Car>>  getByColorId( int colorId){
 		return this.carService.getByColorId(colorId);
 	}
+	
+	@GetMapping("/getbycity")
+	public DataResult<List<Car>> getByCity(String city){
+		return this.carService.getByCity(city);
+	}
+	
+	
 }

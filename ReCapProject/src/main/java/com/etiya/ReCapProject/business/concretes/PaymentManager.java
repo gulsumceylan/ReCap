@@ -45,7 +45,7 @@ public class PaymentManager implements PaymentService{
 		payment.setCreditCard(creditCard);
 			
 		this.paymentDao.save(payment);
-		return new SuccessResult(Messages.ADD);
+		return new SuccessResult(Messages.PaymentReceived);
 	}
 
 	

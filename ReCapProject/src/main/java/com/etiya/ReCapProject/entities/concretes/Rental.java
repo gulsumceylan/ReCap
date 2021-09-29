@@ -1,6 +1,5 @@
 package com.etiya.ReCapProject.entities.concretes;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,30 +26,49 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="rentals")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Table(name = "rentals")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Rental {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="rent_date")
+
+	@Column(name = "rent_date")
 	private Date rentDate;
-	
-	@Column(name="return_date")
+
+	@Column(name = "return_date")
 	@Nullable
 	private Date returnDate;
 	
+	@Column(name = "is_car_returned", columnDefinition = "boolean default false")
+	private boolean isCarReturned;
+	
+	@Column(name="pick_up_location")
+	private String pickUpLocation;
+	
+	@Column(name="return_location")
+	private String returnLocation;
+	
+	@Column(name="pick_up_km")
+	private int pickUpKm;
+	
+	@Column(name="return_km")
+	private int returnKm;
+
 	@ManyToOne
 	@JoinColumn(name = "car_id")
 	private Car car;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "rental")
 	private List<Payment> payments;
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "rental")
+	private Invoice invoice;
 }

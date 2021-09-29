@@ -10,4 +10,6 @@ public interface MaintenanceDao extends JpaRepository<Maintenance, Integer> {
 
 	List<Maintenance> getByCar_CarId(int carId);
 	
+	boolean existsByIsCarReturnedIsFalseAndCar_CarId(int carId);
+	
 }
