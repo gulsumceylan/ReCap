@@ -1,9 +1,7 @@
 package com.etiya.ReCapProject.entities.requests;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,17 +10,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequest {
-
-	@NotBlank(message = "Boş olamaz")
+	
 	@NotNull
-	@Email
+	@NotBlank
 	private String email;
-
-	@Size(min = 6, max = 20)
-	@NotBlank(message = "Boş olamaz")
+	
 	@NotNull
+	@NotBlank
 	private String password;
 }

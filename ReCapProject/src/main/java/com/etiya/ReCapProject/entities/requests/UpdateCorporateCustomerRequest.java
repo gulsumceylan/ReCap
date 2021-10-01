@@ -2,8 +2,9 @@ package com.etiya.ReCapProject.entities.requests;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,26 +16,27 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCorporateCustomerRequest {
-	@NotNull(message = "Boş olamaz")
+	
+	
+	@NotNull
 	private int id;
 	
-	@NotBlank(message = "Boş olamaz")
+	@NotBlank(message="Boş olamaz")
 	@NotNull
-	@Size(min=10,max=10)
+	@Size(min=10, max=10)
 	private String taxNumber;
 	
-	@NotBlank(message = "Boş olamaz")
-	@NotNull
-	private String companyName;
-
-	@NotBlank(message = "Boş olamaz")
-	@NotNull
 	@Email
 	private String email;
 	
-	@Size(min=6, max=20)
-	@NotBlank(message = "Boş olamaz")
 	@NotNull
+	@Size(min=2, max=10)
 	private String password;
+	
+	
+	private String companyName;
+	
+	
+	
 	
 }

@@ -1,34 +1,39 @@
 package com.etiya.ReCapProject.entities.concretes;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper=false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="induvual_customer")
+@Table(name="individual_customer")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class IndividualCustomer extends Customer{
-	@NotNull
-    @Column(name="identity_number")
-	private String identityNumber;
+public class IndividualCustomer extends Customer {
 	
-	@NotNull
-	@Column(name="first_name")
+	
+	@Column(name = "first_name")
 	private String firstName;
 	
-	@NotNull
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
+	
+	@NotNull
+	@Column(name = "identity_number")
+	private String identityNumber;
+
 
 }

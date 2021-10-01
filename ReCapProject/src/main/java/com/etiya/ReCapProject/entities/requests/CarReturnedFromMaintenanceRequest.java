@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarReturnedFromMaintenanceRequest {
-	private int maintenanceId;
+	
+	private int MaintenanceId;
+	
 	
 }

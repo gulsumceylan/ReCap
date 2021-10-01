@@ -12,4 +12,6 @@ import lombok.Setter;
 public class DeleteCorporateCustomerRequest {
 	
 	private int id;
+	
+
 }

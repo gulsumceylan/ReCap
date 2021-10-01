@@ -1,5 +1,6 @@
 package com.etiya.ReCapProject.entities.requests;
-import com.sun.istack.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteMaintenanceRequest {
+	
 	@NotNull
 	private int maintenanceId;
+	
 }

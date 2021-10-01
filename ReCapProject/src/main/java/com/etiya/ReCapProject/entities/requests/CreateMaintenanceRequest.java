@@ -2,7 +2,8 @@ package com.etiya.ReCapProject.entities.requests;
 
 import java.util.Date;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
+
 import com.sun.istack.Nullable;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateMaintenanceRequest {
 	
+	
 	@NotNull
 	private Date maintenanceDate;
 	
@@ -24,5 +26,7 @@ public class CreateMaintenanceRequest {
 	
 	@NotNull
 	private int carId;
-
+	
+	
+	
 }

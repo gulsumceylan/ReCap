@@ -17,8 +17,8 @@ public class InvoiceBetweenDateRequest {
 	
 	@NotNull
 	private Date startDate;
-
+	
 	@NotNull
 	private Date endDate;
-
+	
 }

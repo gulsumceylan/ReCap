@@ -33,9 +33,9 @@ public class BrandsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@Valid @RequestBody CreateBrandRequest createBrandRequest) {
+	public Result add(@Valid @RequestBody CreateBrandRequest createBrandrequest) {
 		
-	return this.brandService.add(createBrandRequest);
+	return this.brandService.add(createBrandrequest);
 	}
 	
 	@GetMapping("/getall")
@@ -44,7 +44,7 @@ public class BrandsController {
 		return this.brandService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
+	@GetMapping("/getById")
 	public DataResult<Brand> getById(int brandId){
 		return this.brandService.getById(brandId);
 	}

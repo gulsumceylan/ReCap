@@ -19,7 +19,8 @@ import com.etiya.ReCapProject.entities.requests.DeleteDamageRecordRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateDamageRecordRequest;
 
 @Service
-public class DamageRecordManager implements DamageRecordService{
+public class DamageRecordManager implements DamageRecordService {
+
 	private DamageRecordDao damageRecordDao;
 	
 	@Autowired
@@ -34,26 +35,26 @@ public class DamageRecordManager implements DamageRecordService{
 	}
 
 	@Override
-	public DataResult<DamageRecord> getById(int DamageRecordId) {
-		return new SuccessDataResult<DamageRecord>(this.damageRecordDao.getById(DamageRecordId));
+	public DataResult<DamageRecord> getById(int id) {
+		return new SuccessDataResult<DamageRecord>(this.damageRecordDao.getById(id));
 	}
 
 	@Override
 	public Result add(CreateDamageRecordRequest createDamageRecordRequest) {
-		Car car=new Car();
-		car.setCarId(createDamageRecordRequest.getCarId());
-		
-		DamageRecord damageRecord=new DamageRecord();
-		damageRecord.setDamageInformation(createDamageRecordRequest.getDamageInformation());
-		damageRecord.setCar(car);
-		
-		this.damageRecordDao.save(damageRecord);
-		return new SuccessResult(Messages.DamageRecordAdded);
+	Car car = new Car();
+	car.setCarId(createDamageRecordRequest.getCarId());
+	
+	DamageRecord damageRecord = new DamageRecord();
+	damageRecord.setDamageInformation(createDamageRecordRequest.getDamageInformation());
+	damageRecord.setCar(car);
+	
+	this.damageRecordDao.save(damageRecord);
+	return new SuccessResult(Messages.DamageRecordAdded);
 	}
 
 	@Override
 	public Result delete(DeleteDamageRecordRequest deleteDamageRecordRequest) {
-		DamageRecord damageRecord=new DamageRecord();
+		DamageRecord damageRecord = new DamageRecord();
 		damageRecord.setId(deleteDamageRecordRequest.getId());
 		
 		this.damageRecordDao.delete(damageRecord);
@@ -62,10 +63,10 @@ public class DamageRecordManager implements DamageRecordService{
 
 	@Override
 	public Result update(UpdateDamageRecordRequest updateDamageRecordRequest) {
-		Car car=new Car();
+		Car car = new Car();
 		car.setCarId(updateDamageRecordRequest.getCarId());
 		
-		DamageRecord damageRecord=new DamageRecord();
+		DamageRecord damageRecord = new DamageRecord();
 		damageRecord.setId(updateDamageRecordRequest.getId());
 		damageRecord.setDamageInformation(updateDamageRecordRequest.getDamageInformation());
 		damageRecord.setCar(car);

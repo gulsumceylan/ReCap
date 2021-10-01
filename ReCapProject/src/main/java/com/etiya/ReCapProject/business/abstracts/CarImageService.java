@@ -11,13 +11,12 @@ import com.etiya.ReCapProject.entities.requests.DeleteCarImageRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateCarImageRequest;
 
 public interface CarImageService {
-
+	
 	DataResult<List<CarImage>> getAll();
-	DataResult<CarImage> getById(int carImageId);
+	DataResult<CarImage> getById(int id);
 	Result add(CreateCarImageRequest createCarImageRequest) throws IOException;
 	Result delete(DeleteCarImageRequest deleteCarImageRequest);
-	Result update(UpdateCarImageRequest updateCarImageRequest) throws IOException;
+	Result update(UpdateCarImageRequest updateCarImageRequest)throws IOException;
 	
 	DataResult<List<CarImage>> getByCarId(int carId);
-	
 }

@@ -9,10 +9,11 @@ import com.etiya.ReCapProject.entities.requests.CreateDamageRecordRequest;
 import com.etiya.ReCapProject.entities.requests.DeleteDamageRecordRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateDamageRecordRequest;
 
-public interface DamageRecordService {
 
+public interface DamageRecordService {
+	
 	DataResult<List<DamageRecord>> getAll();
-	DataResult<DamageRecord> getById(int DamageRecordId);
+	DataResult<DamageRecord> getById(int id);
 	Result add(CreateDamageRecordRequest createDamageRecordRequest);
 	Result delete(DeleteDamageRecordRequest deleteDamageRecordRequest);
 	Result update(UpdateDamageRecordRequest updateDamageRecordRequest);

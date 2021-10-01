@@ -1,10 +1,13 @@
 package com.etiya.ReCapProject.entities.requests;
 
-import javax.validation.constraints.NotNull;
+
+
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,13 +19,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCarImageRequest {
-
-	@NotNull(message = "Boş olamaz")
+	
+	@NotNull
 	private int carId;
 	
+	@NotNull
 	private String imagePath;
 	
+	@NotNull
+	@NotBlank
 	@JsonIgnore
 	private MultipartFile file;
-
+	
+	
+	
 }

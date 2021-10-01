@@ -20,18 +20,19 @@ import com.etiya.ReCapProject.entities.requests.CreateCorporateCustomerRequest;
 import com.etiya.ReCapProject.entities.requests.DeleteCorporateCustomerRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateCorporateCustomerRequest;
 
+
 @RestController
 @RequestMapping("/api/corporatecustomers")
 public class CorporateCustomersController {
 	
 	private CorporateCustomerService corporateCustomerService;
-
+	
 	@Autowired
 	public CorporateCustomersController(CorporateCustomerService corporateCustomerService) {
 		super();
 		this.corporateCustomerService = corporateCustomerService;
 	}
-	
+
 	@PostMapping("/add")
 	public Result add(@Valid @RequestBody CreateCorporateCustomerRequest createCorporateCustomerRequest) {
 		
@@ -44,9 +45,9 @@ public class CorporateCustomersController {
 		return this.corporateCustomerService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<CorporateCustomer> getById(int customerId){
-		return this.corporateCustomerService.getById(customerId);
+	@GetMapping("/getById")
+	public DataResult<CorporateCustomer> getById(int id){
+		return this.corporateCustomerService.getById(id);
 	}
 	
 	@PostMapping("/update")
@@ -58,4 +59,6 @@ public class CorporateCustomersController {
 	public Result delete(@Valid @RequestBody DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
 		return this.corporateCustomerService.delete(deleteCorporateCustomerRequest);
 	}
+	
+
 }

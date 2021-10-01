@@ -41,47 +41,52 @@ public class BrandManager implements BrandService{
 	}
 
 	@Override
-	public Result add(CreateBrandRequest createBrandRequest) {
+	public Result add(CreateBrandRequest createBrandrequest) {	
 		
-		var result = BusinessRules.run(checkBrandName(createBrandRequest.getBrandName()));
+		var result = BusinessRules.run(checkBrandName(createBrandrequest.getBrandName()));
 
 		if (result != null) {
 			return result;
 		}
+			
 		
-		Brand brand= new Brand();
-		brand.setBrandName(createBrandRequest.getBrandName());
+		Brand brand = new Brand();
+		brand.setBrandName(createBrandrequest.getBrandName());
 		
 		this.brandDao.save(brand);
-		return new SuccessResult(Messages.BrandAdded);
-
+		return new SuccessResult( Messages.BrandAdded);
 	}
 
 	@Override
-	public Result delete(DeleteBrandRequest deleteBrandRequest) {
-		Brand brand= new Brand();
-		brand.setBrandId(deleteBrandRequest.getBrandId());
-		 
+	public Result delete(DeleteBrandRequest deleteBrandrequest) {
+		
+		Brand brand = new Brand();
+		brand.setBrandId(deleteBrandrequest.getBrandId());
+		
 		this.brandDao.delete(brand);
-		return new SuccessResult(Messages.BrandDeleted);
+		return new SuccessResult( Messages.BrandDeleted);
+		
 	}
 
 	@Override
-	public Result update(UpdateBrandRequest updateBrandRequest) {
-		Brand brand= new Brand();
-		brand.setBrandName(updateBrandRequest.getBrandName());
-		brand.setBrandId(updateBrandRequest.getBrandId());
-		 
+	public Result update(UpdateBrandRequest updateBrandrequest) {
+		Brand brand = new Brand();
+		brand.setBrandName(updateBrandrequest.getBrandName());
+		brand.setBrandId(updateBrandrequest.getBrandId());
+		
 		this.brandDao.save(brand);
 		return new SuccessResult(Messages.BrandUpdated);
 	}
 	
 	private Result checkBrandName(String brandName) {
-		 if (this.brandDao.existsByBrandName(brandName))
-       {
-           return new ErrorResult(Messages.ExistsBrand);
-       }	 
-		 return new SuccessResult();
+
+		if (this.brandDao.existsByBrandName(brandName)) {
+			return new ErrorResult(Messages.ExistBrand);
+		}
+		return new SuccessResult(Messages.Success);
+
 	}
+	
+
 	
 }

@@ -12,9 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarReturnedRequest {
-	@NotNull(message = "Boş olamaz")
+	
+	@NotNull
 	private int rentalId;
 	
-	@NotNull(message = "Boş olamaz")
+	@NotNull
 	private int returnKm;
+	
 }

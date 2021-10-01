@@ -1,6 +1,7 @@
 package com.etiya.ReCapProject.entities.concretes;
 
 import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @Table(name="car_images")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","car"})
 public class CarImage {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -35,8 +37,9 @@ public class CarImage {
 	@Column(name="date")
 	private LocalDate date;
 	
-	@JsonIgnore
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "car_id")
 	private Car car;
+	
 }

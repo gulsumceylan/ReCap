@@ -13,7 +13,7 @@ public interface BrandService {
 
 	DataResult<List<Brand>> getAll();
 	DataResult<Brand> getById(int brandId);
-	Result add(CreateBrandRequest createBrandRequest);
-	Result delete(DeleteBrandRequest deleteBrandRequest);
-	Result update(UpdateBrandRequest updateBrandRequest);
+	Result add(CreateBrandRequest createBrandrequest);
+	Result delete(DeleteBrandRequest deleteBrandrequest);
+	Result update(UpdateBrandRequest updateBrandrequest);
 }

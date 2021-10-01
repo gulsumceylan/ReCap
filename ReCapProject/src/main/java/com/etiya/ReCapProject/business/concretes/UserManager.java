@@ -40,7 +40,8 @@ public class UserManager implements UserService {
 	@Override
 	public Result add(CreateUserRequest createUserRequest) {
 		
-		ApplicationUser user=new ApplicationUser();
+		ApplicationUser user = new ApplicationUser();
+		
 		user.setEmail(createUserRequest.getEmail());
 		user.setPassword(createUserRequest.getPassword());
 		
@@ -50,17 +51,20 @@ public class UserManager implements UserService {
 
 	@Override
 	public Result delete(DeleteUserRequest deleteUserRequest) {
-		ApplicationUser user=new ApplicationUser();
+		
+		ApplicationUser user = new ApplicationUser();
 		user.setId(deleteUserRequest.getId());
 		
-		this.userDao.save(user);
+		this.userDao.delete(user);
 		return new SuccessResult(Messages.UserDeleted);
 	}
 
 	@Override
 	public Result update(UpdateUserRequest updateUserRequest) {
-		ApplicationUser user=new ApplicationUser();
+		
+		ApplicationUser user = new ApplicationUser();
 		user.setId(updateUserRequest.getId());
+		
 		user.setEmail(updateUserRequest.getEmail());
 		user.setPassword(updateUserRequest.getPassword());
 		

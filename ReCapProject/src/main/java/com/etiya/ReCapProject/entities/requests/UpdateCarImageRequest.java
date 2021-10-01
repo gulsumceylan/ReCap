@@ -1,7 +1,9 @@
 package com.etiya.ReCapProject.entities.requests;
-import javax.validation.constraints.NotNull;
+
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +15,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateCarImageRequest {
-	@NotNull(message = "Boş olamaz")
+	
+	@NotNull
 	private int id;
 	
 	private int carId;
+
 	
 	private MultipartFile file;
-
 }

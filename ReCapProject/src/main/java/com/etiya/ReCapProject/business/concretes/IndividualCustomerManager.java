@@ -27,10 +27,10 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	private UserDao userDao;
 
 	@Autowired
-	public IndividualCustomerManager(IndividualCustomerDao individualCustomerDao,UserDao userDao) {
+	public IndividualCustomerManager(IndividualCustomerDao individualCustomerDao, UserDao userDao) {
 		super();
 		this.individualCustomerDao = individualCustomerDao;
-		this.userDao=userDao;
+		this.userDao = userDao;
 	}
 
 	@Override
@@ -46,13 +46,12 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	@Override
 	public Result add(CreateIndividualCustomerRequest createIndividualCustomerRequest) {
 		
-		var result = BusinessRules.run(checkToEmailforRegister(createIndividualCustomerRequest.getEmail())
-				,checkToPasswordforRegister(createIndividualCustomerRequest.getPassword()));
+		var result = BusinessRules.run(checkToEmailForRegister(createIndividualCustomerRequest.getEmail()),
+				checkToPasswordForRegister(createIndividualCustomerRequest.getPassword()));
 
 		if (result != null) {
 			return result;
 		}
-
 		
 		IndividualCustomer individualCustomer=new IndividualCustomer();
 		individualCustomer.setEmail(createIndividualCustomerRequest.getEmail());
@@ -66,7 +65,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	}
 
 	@Override
-	public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {	
+	public Result delete(DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
+		
 		IndividualCustomer individualCustomer=new IndividualCustomer();
 		individualCustomer.setId(deleteIndividualCustomerRequest.getId());
 		
@@ -75,7 +75,8 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 	}
 
 	@Override
-	public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {	
+	public Result update(UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {
+		
 		IndividualCustomer individualCustomer=new IndividualCustomer();
 		individualCustomer.setId(updateIndividualCustomerRequest.getId());
 		individualCustomer.setEmail(updateIndividualCustomerRequest.getEmail());
@@ -88,19 +89,20 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 		return new SuccessResult(Messages.CustomerUpdated);
 	}
 	
-	private Result checkToEmailforRegister(String email) {
-		 if (this.userDao.existsByEmail(email))
-      {
-          return new ErrorResult(Messages.ExistsUser);
-      }	 
-		 return new SuccessResult();
+	private Result checkToEmailForRegister(String email) {
+
+		if (this.userDao.existsByEmail(email)) {
+			return new ErrorResult(Messages.ExistsUser);
+		}
+		return new SuccessResult();
+
 	}
-	
-	private Result checkToPasswordforRegister(String password) {
-		 if (this.userDao.existsByPassword(password))
-     {
-         return new ErrorResult();
-     }	 
-		 return new SuccessResult();
+	private Result checkToPasswordForRegister(String password) {
+
+		if (this.userDao.existsByPassword(password))  {
+			return new ErrorResult(Messages.ERROR);
+		}
+		return new SuccessResult();
+
 	}
 }

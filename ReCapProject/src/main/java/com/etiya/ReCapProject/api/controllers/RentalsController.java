@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,17 +33,19 @@ public class RentalsController {
 		this.rentalService = rentalService;
 	}
 	
-	@PostMapping("/addforindividulacustomer")
+	@PostMapping("/addforindividualcustomer")
 	public Result addForIndividualCustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
 		
 	return this.rentalService.addForIndividualCustomer(createRentalRequest);
 	}
 	
 	@PostMapping("/addforcorporatecustomer")
-	public Result addForCorporateCustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
+	public Result addForCorporateustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
 		
 	return this.rentalService.addForCorporateCustomer(createRentalRequest);
 	}
+	
+	
 	
 	@GetMapping("/getall")
 	public DataResult<List<Rental>> getAll(){
@@ -50,14 +53,9 @@ public class RentalsController {
 		return this.rentalService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
+	@GetMapping("/getById")
 	public DataResult<Rental> getById(int rentalId){
 		return this.rentalService.getById(rentalId);
-	}
-	
-	@PostMapping("/updateforindividualcustomer")
-	public Result updateForIndividualCustomer(@Valid @RequestBody UpdateRentalRequest updateRentalRequest) {
-		return this.rentalService.updateForIndividualCustomer(updateRentalRequest);
 	}
 	
 	@PostMapping("/updateforcorporatecustomer")
@@ -65,15 +63,18 @@ public class RentalsController {
 		return this.rentalService.updateForCorporateCustomer(updateRentalRequest);
 	}
 	
-	@PostMapping("/delete")
+	@PostMapping("/updateforindividualcustomer")
+	public Result updateForIndividualCustomer(@Valid @RequestBody UpdateRentalRequest updateRentalRequest) {
+		return this.rentalService.updateForIndividualCustomer(updateRentalRequest);
+	}
+	
+	@PutMapping("/delete")
 	public Result delete(@Valid @RequestBody DeleteRentalRequest deleteRentalRequest) {
 		return this.rentalService.delete(deleteRentalRequest);
 	}
 	
-	@PostMapping("/validatecarreturned")
+	@PostMapping("validateCarReturned")
 	public Result validateCarReturned(@Valid @RequestBody CarReturnedRequest carReturnedRequest) {
 		return this.rentalService.validateCarReturned(carReturnedRequest);
 	}
-	
-
 }

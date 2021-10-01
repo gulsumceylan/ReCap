@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.etiya.ReCapProject.business.abstracts.IndividualCustomerService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
@@ -24,13 +25,13 @@ import com.etiya.ReCapProject.entities.requests.UpdateIndividualCustomerRequest;
 public class IndividualCustomersController {
 	
 	private IndividualCustomerService individualCustomerService;
-
+	
 	@Autowired
 	public IndividualCustomersController(IndividualCustomerService individualCustomerService) {
 		super();
 		this.individualCustomerService = individualCustomerService;
 	}
-	
+
 	@PostMapping("/add")
 	public Result add(@Valid @RequestBody CreateIndividualCustomerRequest createIndividualCustomerRequest) {
 		
@@ -43,9 +44,9 @@ public class IndividualCustomersController {
 		return this.individualCustomerService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<IndividualCustomer> getById(int customerId){
-		return this.individualCustomerService.getById(customerId);
+	@GetMapping("/getById")
+	public DataResult<IndividualCustomer> getById(int id){
+		return this.individualCustomerService.getById(id);
 	}
 	
 	@PostMapping("/update")

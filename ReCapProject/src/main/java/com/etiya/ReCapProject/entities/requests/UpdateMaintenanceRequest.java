@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateMaintenanceRequest {
+	
 	@NotNull
 	private int maintenanceId;
 	

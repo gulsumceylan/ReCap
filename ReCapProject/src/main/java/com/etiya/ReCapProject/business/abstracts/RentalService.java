@@ -14,14 +14,15 @@ public interface RentalService {
 	
 	DataResult<List<Rental>> getAll();
 	DataResult<Rental> getById(int rentalId);
-    Result addForIndividualCustomer(CreateRentalRequest createRentalRequest);
+	Result addForIndividualCustomer(CreateRentalRequest createRentalRequest);
 	Result addForCorporateCustomer(CreateRentalRequest createRentalRequest);
 	Result delete(DeleteRentalRequest deleteRentalRequest);
-	Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest);
 	Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest);
+	Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest);
 	
-	Result validateCarReturned(CarReturnedRequest carReturnedRequest);
-
+	Result validateCarReturned (CarReturnedRequest carReturnedRequest);
+	
+	
+	
 
 }
-

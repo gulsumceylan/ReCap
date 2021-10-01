@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.etiya.ReCapProject.entities.concretes.CarImage;
 
-
-public interface CarImageDao extends JpaRepository<CarImage, Integer> {
+public interface CarImageDao extends JpaRepository<CarImage, Integer>{
 	
 	List<CarImage> getByCar_CarId(int carId);
+	
 	
 	
 }

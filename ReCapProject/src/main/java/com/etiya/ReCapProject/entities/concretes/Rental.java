@@ -1,5 +1,6 @@
 package com.etiya.ReCapProject.entities.concretes;
 
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,18 +23,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "rentals")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name="rentals")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Rental {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name="id")
 	private int id;
-
-	@Column(name = "rent_date")
+	
+	@Column(name="rent_date")
 	private Date rentDate;
-
-	@Column(name = "return_date")
+	
+	@Column(name="return_date")
 	@Nullable
 	private Date returnDate;
 	
@@ -42,7 +43,7 @@ public class Rental {
 	
 	@Column(name="pick_up_location")
 	private String pickUpLocation;
-	
+
 	@Column(name="return_location")
 	private String returnLocation;
 	
@@ -51,13 +52,17 @@ public class Rental {
 	
 	@Column(name="return_km")
 	private int returnKm;
-
-	@ManyToOne
-	@JoinColumn(name = "car_id")
-	private Car car;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
+	
+	@ManyToOne
+	@JoinColumn(name = "car_id")
+	private Car car;
+	
+	
+	
 
+	
 }

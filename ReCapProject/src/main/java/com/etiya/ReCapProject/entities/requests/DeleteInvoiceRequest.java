@@ -12,7 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteInvoiceRequest {
+	
 	@NotNull
 	private int invoiceId;
-
+	
 }

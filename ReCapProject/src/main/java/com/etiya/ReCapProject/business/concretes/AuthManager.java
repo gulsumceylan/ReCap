@@ -32,23 +32,26 @@ public class AuthManager implements AuthService {
 		if (result != null) {
 			return result;
 		}
-        return new SuccessResult(Messages.Login);
-		
+		return new SuccessResult(Messages.Login);
 	}
-	
+
 	private Result checkToEmail(String email) {
-		 if (this.userDao.getByEmail(email)==null)
-         {
-             return new ErrorResult(Messages.IncorrectEntry);
-         }	 
-		 return new SuccessResult();
+
+		if (this.userDao.getByEmail(email) == null) {
+			return new ErrorResult(Messages.IncorrectEntry);
+		}
+		return new SuccessResult(Messages.Success);
+
 	}
 	
-	private Result checkToPassword(String email,String password) {
-		 if (this.userDao.getByEmail(email)!=this.userDao.getByPassword(password))
-        {
-            return new ErrorResult(Messages.IncorrectEntry);
-        }	 
-		 return new SuccessResult();
+	private Result checkToPassword(String email, String password) {
+
+		if (this.userDao.getByEmail(email)  != this.userDao.getByPassword(password))  {
+			return new ErrorResult(Messages.IncorrectEntry);
+		}
+		return new SuccessResult(Messages.Success);
+
 	}
+
+
 }

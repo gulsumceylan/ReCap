@@ -94,7 +94,8 @@ public class CarImageManager implements CarImageService{
 		CarImage carImage = new CarImage();
 		
 		carImage.setId(deleteCarImageRequest.getId());
-
+		
+		
 		this.carImageDao.delete(carImage);
 		return new SuccessResult(Messages.CarImageDeleted);
 	}
@@ -108,9 +109,6 @@ public class CarImageManager implements CarImageService{
 		if (result != null) {
 			return result;
 		}
-			
-		Car car = new Car();
-		car.setCarId(updateCarImageRequest.getCarId());
 		
 		LocalDate date = LocalDate.now();
 		String imagePath = UUID.randomUUID().toString();
@@ -122,10 +120,14 @@ public class CarImageManager implements CarImageService{
 		FileOutputStream fileOutpuStream = new FileOutputStream(myFile);
 		fileOutpuStream.write(updateCarImageRequest.getFile().getBytes());
 		fileOutpuStream.close();
-			
+	
+		Car car = new Car();
+		car.setCarId(updateCarImageRequest.getCarId());
+		
 		CarImage carImage = new CarImage();
 		carImage.setImagePath(myFile.toString());
 		carImage.setDate(date);
+		carImage.setCar(car);
 				
 		this.carImageDao.save(carImage);
 		return new SuccessResult(Messages.CarImageUpdated) ;
@@ -139,7 +141,7 @@ public class CarImageManager implements CarImageService{
 
 	private Result checkIfCarImageLimitExceeded(int carId, int limit) {
 		if (this.carImageDao.getByCar_CarId(carId).size() >= limit) {
-			return new ErrorResult(Messages.LIMIT);
+			return new ErrorResult(Messages.Limit);
 		}
 		return new SuccessResult();
 	}
@@ -159,6 +161,7 @@ public class CarImageManager implements CarImageService{
 			System.out.println(file.getContentType());
 			return new ErrorResult(Messages.FormatError);
 			}
+		
 		}
 		
 		return new SuccessResult();

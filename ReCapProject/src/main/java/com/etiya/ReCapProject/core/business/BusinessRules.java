@@ -1,4 +1,5 @@
 package com.etiya.ReCapProject.core.business;
+
 import com.etiya.ReCapProject.core.utilities.results.Result;
 
 public class BusinessRules {
@@ -10,8 +11,11 @@ public class BusinessRules {
 			if(!logic.isSuccess() )
 			{
 				return logic;
-			}	
+			}
+			
 		}
+		
 		return null;
 	}
+
 }

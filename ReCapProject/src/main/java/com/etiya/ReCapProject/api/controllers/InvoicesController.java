@@ -1,5 +1,8 @@
 package com.etiya.ReCapProject.api.controllers;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,10 +25,6 @@ import com.etiya.ReCapProject.entities.requests.DeleteInvoiceRequest;
 import com.etiya.ReCapProject.entities.requests.InvoiceBetweenDateRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateInvoiceRequest;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 @RestController
 @RequestMapping("/api/invoices")
 public class InvoicesController {
@@ -39,10 +38,11 @@ public class InvoicesController {
 	}
 
 	@PostMapping("/add")
-	public Result addForIndividualCustomer(@Valid @RequestBody CreateInvoiceRequest createInvoiceRequest ) {
+	public Result add(@Valid @RequestBody CreateInvoiceRequest createInvoiceRequest ) {
 		
 	return this.invoiceService.add(createInvoiceRequest);
 	}
+
 	
 	@GetMapping("/getall")
 	public DataResult<List<Invoice>> getAll(){
@@ -73,14 +73,14 @@ public class InvoicesController {
 	@GetMapping("/getbyinvoicedatebetween")
 	public DataResult<List<Invoice>> getByInvoiceDateBetween(String startDate, String endDate) throws ParseException{
 		
-		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate1=dateFormat.parse(startDate);
-		Date endDate1=dateFormat.parse(endDate);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date startDate1 = dateFormat.parse(endDate);
+		Date endDate1 = dateFormat.parse(startDate);
+
+		InvoiceBetweenDateRequest invoiceBetweenDateRequest = new InvoiceBetweenDateRequest();
+		invoiceBetweenDateRequest.setEndDate(startDate1);
+		invoiceBetweenDateRequest.setStartDate(endDate1);
 		
-		InvoiceBetweenDateRequest invoiceBetweenDateRequest=new InvoiceBetweenDateRequest();
-	    invoiceBetweenDateRequest.setEndDate(endDate1);
-	    invoiceBetweenDateRequest.setStartDate(startDate1);
-			
 		return this.invoiceService.getByInvoiceDateBetween(invoiceBetweenDateRequest);
 	}
 	

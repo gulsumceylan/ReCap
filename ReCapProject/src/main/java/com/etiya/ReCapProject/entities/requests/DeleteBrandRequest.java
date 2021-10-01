@@ -10,8 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteBrandRequest {
-
+	
 	private int brandId;
-
-
+	
 }

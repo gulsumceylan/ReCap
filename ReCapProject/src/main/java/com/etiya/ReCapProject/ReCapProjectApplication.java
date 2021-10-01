@@ -1,5 +1,7 @@
 package com.etiya.ReCapProject;
 
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class ReCapProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReCapProjectApplication.class, args);
 	}
-	
+
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)

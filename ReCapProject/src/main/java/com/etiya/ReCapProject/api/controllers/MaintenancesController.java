@@ -24,6 +24,7 @@ import com.etiya.ReCapProject.entities.requests.UpdateMaintenanceRequest;
 @RestController
 @RequestMapping("/api/maintenances")
 public class MaintenancesController {
+	
 	private MaintenanceService maintenanceService;
 
 	@Autowired
@@ -35,7 +36,7 @@ public class MaintenancesController {
 	@PostMapping("/add")
 	public Result add(@Valid @RequestBody CreateMaintenanceRequest createMaintenanceRequest) {
 		
-	 return this.maintenanceService.add(createMaintenanceRequest);
+	return this.maintenanceService.add(createMaintenanceRequest);
 	}
 	
 	@GetMapping("/getall")
@@ -44,9 +45,9 @@ public class MaintenancesController {
 		return this.maintenanceService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<Maintenance> getById( int maintenanceId){
-		return this.maintenanceService.getById(maintenanceId);
+	@GetMapping("/getById")
+	public DataResult<Maintenance> getById(int id){
+		return this.maintenanceService.getById(id);
 	}
 	
 	@PostMapping("/update")
@@ -59,7 +60,7 @@ public class MaintenancesController {
 		return this.maintenanceService.delete(deleteMaintenanceRequest);
 	}
 	
-	@PostMapping("/validatecarreturned")
+	@PostMapping("/validateCarReturned")
 	public Result validateCarReturned(CarReturnedFromMaintenanceRequest carReturnedFromMaintenanceRequest) {
 		return this.maintenanceService.validateCarReturned(carReturnedFromMaintenanceRequest);
 	}

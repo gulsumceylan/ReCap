@@ -2,6 +2,8 @@ package com.etiya.ReCapProject.api.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.etiya.ReCapProject.business.abstracts.DamageRecordService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
@@ -20,6 +23,7 @@ import com.etiya.ReCapProject.entities.requests.UpdateDamageRecordRequest;
 @RestController
 @RequestMapping("/api/damagerecords")
 public class DamageRecordsController {
+	
 	private DamageRecordService damageRecordService;
 
 	@Autowired
@@ -28,10 +32,11 @@ public class DamageRecordsController {
 		this.damageRecordService = damageRecordService;
 	}
 	
+	
 	@PostMapping("/add")
-	public Result add(@RequestBody CreateDamageRecordRequest createDamageRecordRequest) {
+	public Result add(@Valid @RequestBody CreateDamageRecordRequest createDamageRecordRequest) {
 		
-	 return this.damageRecordService.add(createDamageRecordRequest);
+	return this.damageRecordService.add(createDamageRecordRequest);
 	}
 	
 	@GetMapping("/getall")
@@ -40,18 +45,18 @@ public class DamageRecordsController {
 		return this.damageRecordService.getAll();
 	}
 	
-	@GetMapping("/getbyid")
-	public DataResult<DamageRecord> getById( int damageRecordId){
-		return this.damageRecordService.getById(damageRecordId);
+	@GetMapping("/getById")
+	public DataResult<DamageRecord> getById(int id){
+		return this.damageRecordService.getById(id);
 	}
 	
 	@PostMapping("/update")
-	public Result update(@RequestBody UpdateDamageRecordRequest updateDamageRecordRequest) {
+	public Result update(@Valid @RequestBody UpdateDamageRecordRequest updateDamageRecordRequest) {
 		return this.damageRecordService.update(updateDamageRecordRequest);
 	}
 	
 	@PutMapping("/delete")
-	public Result delete(@RequestBody DeleteDamageRecordRequest deleteDamageRecordRequest) {
+	public Result delete(@Valid @RequestBody DeleteDamageRecordRequest deleteDamageRecordRequest) {
 		return this.damageRecordService.delete(deleteDamageRecordRequest);
 	}
 	

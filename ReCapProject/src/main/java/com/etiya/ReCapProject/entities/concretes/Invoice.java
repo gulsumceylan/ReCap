@@ -24,13 +24,14 @@ import lombok.NoArgsConstructor;
 @Table(name="invoices")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Invoice {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="invoice_id")
 	private int invoiceId;
 	
 	@Column(name="invoice_number")
-	private String invoiceNumber;
+	private int invoiceNumber;
 	
 	@Column(name="invoice_date")
 	private Date invoiceDate;
@@ -40,8 +41,10 @@ public class Invoice {
 	
 	@Column(name="total_amount")
 	private double totalAmount;
-	
+
 	@OneToOne
-	@JoinColumn(name = "rental_id")
+	@JoinColumn(name="rental_id")
 	private Rental rental;
+	
+	
 }

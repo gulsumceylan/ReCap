@@ -1,9 +1,9 @@
 package com.etiya.ReCapProject.entities.requests;
 
 import java.util.Date;
-import javax.validation.constraints.NotNull;
 
 import com.etiya.ReCapProject.entities.dtos.CreditCardDetailDto;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,22 +15,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRentalRequest {
-	@NotNull(message = "Boş olamaz")
-	private int customerId;
-
-	@NotNull(message = "Boş olamaz")
+	
 	private int carId;
-
-	@NotNull(message = "Boş olamaz")
+	
+	@NotNull
+	private int customerId;
+	
+	@NotNull
 	private Date rentDate;
 	
 	private Date returnDate;
-
-	private String returnLocation;
 	
-	private int creditCardId;
+	private String returnLocation;
 	
 	private CreditCardDetailDto creditCardDetailDto;
 	
 	private boolean isCardSaved;
+	
+	private int creditCardId;
+	
 }

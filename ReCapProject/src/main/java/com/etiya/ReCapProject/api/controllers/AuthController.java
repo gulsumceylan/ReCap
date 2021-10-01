@@ -15,7 +15,7 @@ import com.etiya.ReCapProject.entities.requests.LoginRequest;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-	
+
 	private AuthService authService;
 
 	@Autowired
@@ -23,11 +23,10 @@ public class AuthController {
 		super();
 		this.authService = authService;
 	}
-	
+
 	@PostMapping("/login")
-	public Result login(@Valid @RequestBody LoginRequest loginRequest) {
-		
-	return this.authService.login(loginRequest);
+	public Result delete(@Valid @RequestBody LoginRequest loginRequest) {
+		return this.authService.login(loginRequest);
 	}
 
 }

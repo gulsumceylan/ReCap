@@ -46,12 +46,7 @@ public class CarsController {
 		return this.carService.getAll();
 	}
 	
-	@GetMapping("/getavailablecars")
-	public DataResult<List<Car>> getAvailableCars(){	
-		return this.carService.getAvailableCars();
-	}
-	
-	@GetMapping("/getbyid")
+	@GetMapping("/getById")
 	public DataResult<Car> getById( int carId){
 		return this.carService.getById(carId);
 	}
@@ -77,11 +72,14 @@ public class CarsController {
 	}
 	
 	@GetMapping("/getbycolorid")
-	public DataResult<List<Car>>  getByColorId( int colorId){
+	public DataResult<List<Car>> getByColorId( int colorId){
 		return this.carService.getByColorId(colorId);
 	}
-	
-	@GetMapping("/getbycity")
+	@GetMapping("/getavailablecars")
+	public DataResult<List<Car>> getAvailableCars(){
+		return this.carService.getAvailableCars();
+	}
+	@GetMapping("/getcity")
 	public DataResult<List<Car>> getByCity(String city){
 		return this.carService.getByCity(city);
 	}

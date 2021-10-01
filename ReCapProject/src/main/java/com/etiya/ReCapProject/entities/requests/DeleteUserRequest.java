@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteUserRequest {
+	
 	private int id;
-
 	
 }

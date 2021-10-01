@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,13 +20,14 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name="customers")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Customer extends ApplicationUser {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -35,9 +37,9 @@ public class Customer extends ApplicationUser {
 	@JsonIgnore
 	private List<Rental> rentals;
 	
+	
+	@OneToMany(mappedBy= "customer")
 	@JsonIgnore
-	@OneToMany(mappedBy = "customer")
 	private List<CreditCard> creditCards;
 	
-
 }

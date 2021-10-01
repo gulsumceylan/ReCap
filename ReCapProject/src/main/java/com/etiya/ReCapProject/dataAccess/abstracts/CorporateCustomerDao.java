@@ -6,5 +6,4 @@ import com.etiya.ReCapProject.entities.concretes.CorporateCustomer;
 
 public interface CorporateCustomerDao extends JpaRepository<CorporateCustomer, Integer> {
 
-	
 }

@@ -40,7 +40,6 @@ public class ColorManager implements ColorService{
 		return new SuccessDataResult<Color>(this.colorDao.getById(colorId));
 	}
 
-
 	@Override
 	public Result add(CreateColorRequest createColorRequest) {
 		
@@ -49,28 +48,30 @@ public class ColorManager implements ColorService{
 		if (result != null) {
 			return result;
 		}
-		
-		Color color=new Color();
+			
+		Color color = new Color();
 		color.setColorName(createColorRequest.getColorName());
-
+		
 		this.colorDao.save(color);
 		return new SuccessResult(Messages.ColorAdded);
+		
 	}
 
 	@Override
 	public Result delete(DeleteColorRequest deleteColorRequest) {
 		
-		Color color=new Color();
+		Color color = new Color();
 		color.setColorId(deleteColorRequest.getColorId());
 		
 		this.colorDao.delete(color);
 		return new SuccessResult(Messages.ColorDeleted);
+		
 	}
 
 	@Override
 	public Result update(UpdateColorRequest updateColorRequest) {
 		
-		Color color=new Color();
+		Color color = new Color();
 		color.setColorId(updateColorRequest.getColorId());
 		color.setColorName(updateColorRequest.getColorName());
 		
@@ -79,11 +80,12 @@ public class ColorManager implements ColorService{
 	}
 	
 	private Result checkColorName(String colorName) {
-		 if (this.colorDao.existsByColorName(colorName))
-      {
-          return new ErrorResult(Messages.ExistsColor);
-      }	 
-		 return new SuccessResult();
+
+		if (this.colorDao.existsByColorName(colorName)) {
+			return new ErrorResult(Messages.ExistColor);
+		}
+		return new SuccessResult(Messages.Success);
+
 	}
 	
 }

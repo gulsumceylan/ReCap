@@ -1,6 +1,6 @@
 package com.etiya.ReCapProject.entities.requests;
 
-import javax.validation.constraints.NotNull;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeleteCarImageRequest {
-	@NotNull(message = "Boş olamaz")
+		
+	@NotNull
 	private int id;
+
+	
 	
 }

@@ -11,12 +11,13 @@ import com.etiya.ReCapProject.entities.requests.DeleteMaintenanceRequest;
 import com.etiya.ReCapProject.entities.requests.UpdateMaintenanceRequest;
 
 public interface MaintenanceService {
-
+	
 	DataResult<List<Maintenance>> getAll();
 	DataResult<Maintenance> getById(int id);
 	Result add(CreateMaintenanceRequest createMaintenanceRequest);
 	Result delete(DeleteMaintenanceRequest deleteMaintenanceRequest);
 	Result update(UpdateMaintenanceRequest updateMaintenanceRequest);
 	
-	Result validateCarReturned(CarReturnedFromMaintenanceRequest carReturnedFromMaintenanceRequest);
+	Result validateCarReturned (CarReturnedFromMaintenanceRequest carReturnedFromMaintenanceRequest);
+	
 }
