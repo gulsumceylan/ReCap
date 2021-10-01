@@ -24,9 +24,9 @@ import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.CarImageDao;
 import com.etiya.ReCapProject.entities.concretes.Car;
 import com.etiya.ReCapProject.entities.concretes.CarImage;
-import com.etiya.ReCapProject.entities.requests.CreateCarImageRequest;
-import com.etiya.ReCapProject.entities.requests.DeleteCarImageRequest;
-import com.etiya.ReCapProject.entities.requests.UpdateCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.create.CreateCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.delete.DeleteCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.update.UpdateCarImageRequest;
 
 @Service
 public class CarImageManager implements CarImageService{
@@ -121,13 +121,13 @@ public class CarImageManager implements CarImageService{
 		fileOutpuStream.write(updateCarImageRequest.getFile().getBytes());
 		fileOutpuStream.close();
 	
-		Car car = new Car();
-		car.setCarId(updateCarImageRequest.getCarId());
+	
 		
-		CarImage carImage = new CarImage();
+		CarImage carImage = this.carImageDao.getById(updateCarImageRequest.getId());
+		carImage.setId(updateCarImageRequest.getId());
 		carImage.setImagePath(myFile.toString());
 		carImage.setDate(date);
-		carImage.setCar(car);
+	
 				
 		this.carImageDao.save(carImage);
 		return new SuccessResult(Messages.CarImageUpdated) ;

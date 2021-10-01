@@ -19,9 +19,9 @@ import com.etiya.ReCapProject.business.abstracts.CarImageService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.concretes.CarImage;
-import com.etiya.ReCapProject.entities.requests.CreateCarImageRequest;
-import com.etiya.ReCapProject.entities.requests.DeleteCarImageRequest;
-import com.etiya.ReCapProject.entities.requests.UpdateCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.create.CreateCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.delete.DeleteCarImageRequest;
+import com.etiya.ReCapProject.entities.requests.update.UpdateCarImageRequest;
 
 @RestController
 @RequestMapping("/api/carimages")
@@ -34,13 +34,14 @@ public class CarImagesController {
 		super();
 		this.carImageService = carImageService;
 	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestParam("carId") int carId, MultipartFile file) throws IOException {
 		
-		CreateCarImageRequest creataCarImageRequest = new CreateCarImageRequest();
-		creataCarImageRequest.setCarId(carId);
-		creataCarImageRequest.setFile(file);
-		return this.carImageService.add(creataCarImageRequest);
+		CreateCarImageRequest createCarImageRequest = new CreateCarImageRequest();
+		createCarImageRequest.setCarId(carId);
+		createCarImageRequest.setFile(file);
+		return this.carImageService.add(createCarImageRequest);
 	}
 	
 	@GetMapping("/getall")
@@ -55,12 +56,12 @@ public class CarImagesController {
 	}
 	
 	@PostMapping("/update")
-	public Result update(@RequestParam("carId") int carId, MultipartFile file) throws IOException {
-		UpdateCarImageRequest updateCarImageRequest = new UpdateCarImageRequest();
-		updateCarImageRequest.setCarId(carId);
-		updateCarImageRequest.setFile(file);
-		return this.carImageService.update(updateCarImageRequest);
-	}
+    public Result update(@RequestParam("CarImageId") int id, MultipartFile file) throws IOException {
+        UpdateCarImageRequest updateCarImageRequest = new UpdateCarImageRequest();
+        updateCarImageRequest.setId(id);
+        updateCarImageRequest.setFile(file);
+        return this.carImageService.update(updateCarImageRequest);
+    }
 	
 	@PutMapping("/delete")
 	public Result delete(@Valid @RequestBody DeleteCarImageRequest deleteCarImageRequest) {
