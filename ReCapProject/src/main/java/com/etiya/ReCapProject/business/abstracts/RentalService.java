@@ -22,4 +22,6 @@ public interface RentalService {
 	
 	Result validateCarReturned(CarReturnedRequest carReturnedRequest);
 
+
 }
+

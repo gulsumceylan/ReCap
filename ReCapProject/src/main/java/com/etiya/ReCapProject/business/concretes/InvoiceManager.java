@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.etiya.ReCapProject.business.abstracts.InvoiceService;
 import com.etiya.ReCapProject.business.abstracts.RentalService;
 import com.etiya.ReCapProject.business.constants.Messages;
@@ -44,13 +45,13 @@ public class InvoiceManager implements InvoiceService {
 	}
 
 	@Override
-	public Result addForIndividualCustomer(CreateInvoiceRequest createInvoiceRequest) {
+	public Result add(CreateInvoiceRequest createInvoiceRequest) {
 		Rental rental = this.rentalService.getById(createInvoiceRequest.getRentalId()).getData();
 
-		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(), rental.getReturnDate().toInstant());
-	    
-		double totalAmount = rental.getCar().getDailyPrice() * totalRentalDay;
+		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(),
+				rental.getReturnDate().toInstant());
 
+		double totalAmount = rental.getCar().getDailyPrice() * totalRentalDay;
 		Date now = new Date();
 
 		Invoice invoice = new Invoice();
@@ -65,32 +66,12 @@ public class InvoiceManager implements InvoiceService {
 	}
 
 	@Override
-	public Result addForCorporateCustomer(CreateInvoiceRequest createInvoiceRequest) {
-		Rental rental = this.rentalService.getById(createInvoiceRequest.getRentalId()).getData();
-
-		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(), rental.getReturnDate().toInstant());
-	    
-		double totalAmount = rental.getCar().getDailyPrice() * totalRentalDay;
-
-		Date now = new Date();
-
-		Invoice invoice = new Invoice();
-		invoice.setInvoiceNumber(createInvoiceRequest.getInvoiceNumber());
-		invoice.setInvoiceDate(now);
-		invoice.setTotalRentalDay((int)totalRentalDay);
-		invoice.setTotalAmount(totalAmount);
-		invoice.setRental(rental);
-
-		this.invoiceDao.save(invoice);
-		return new SuccessResult(Messages.InvoiceAdded);
-	}
-
-	@Override
-	public Result updateForIndividualCustomer(UpdateInvoiceRequest updateInvoiceRequest) {
+	public Result update(UpdateInvoiceRequest updateInvoiceRequest) {
 		Rental rental = this.rentalService.getById(updateInvoiceRequest.getRentalId()).getData();
 
-		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(), rental.getReturnDate().toInstant());
-	    
+		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(),
+				rental.getReturnDate().toInstant());
+
 		double totalAmount = rental.getCar().getDailyPrice() * totalRentalDay;
 
 		Date now = new Date();
@@ -99,29 +80,7 @@ public class InvoiceManager implements InvoiceService {
 		invoice.setInvoiceId(updateInvoiceRequest.getInvoiceId());
 		invoice.setInvoiceNumber(updateInvoiceRequest.getInvoiceNumber());
 		invoice.setInvoiceDate(now);
-		invoice.setTotalRentalDay((int)totalRentalDay);
-		invoice.setTotalAmount(totalAmount);
-		invoice.setRental(rental);
-
-		this.invoiceDao.save(invoice);
-		return new SuccessResult(Messages.InvoiceUpdated);
-	}
-
-	@Override
-	public Result updateForCorporateCustomer(UpdateInvoiceRequest updateInvoiceRequest) {
-		Rental rental = this.rentalService.getById(updateInvoiceRequest.getRentalId()).getData();
-
-		long totalRentalDay = ChronoUnit.DAYS.between(rental.getRentDate().toInstant(), rental.getReturnDate().toInstant());
-	    
-		double totalAmount = rental.getCar().getDailyPrice() * totalRentalDay;
-
-		Date now = new Date();
-
-		Invoice invoice = new Invoice();
-		invoice.setInvoiceId(updateInvoiceRequest.getInvoiceId());
-		invoice.setInvoiceNumber(updateInvoiceRequest.getInvoiceNumber());
-		invoice.setInvoiceDate(now);
-		invoice.setTotalRentalDay((int)totalRentalDay);
+		invoice.setTotalRentalDay((int) totalRentalDay);
 		invoice.setTotalAmount(totalAmount);
 		invoice.setRental(rental);
 
@@ -145,7 +104,8 @@ public class InvoiceManager implements InvoiceService {
 
 	@Override
 	public DataResult<List<Invoice>> getByInvoiceDateBetween(InvoiceBetweenDateRequest invoiceBetweenDateRequest) {
-		return new SuccessDataResult<List<Invoice>>(this.invoiceDao.getByInvoiceDateBetween(invoiceBetweenDateRequest.getStartDate(), invoiceBetweenDateRequest.getEndDate()));
+		return new SuccessDataResult<List<Invoice>>(this.invoiceDao.getByInvoiceDateBetween(
+				invoiceBetweenDateRequest.getStartDate(), invoiceBetweenDateRequest.getEndDate()));
 	}
 
 }

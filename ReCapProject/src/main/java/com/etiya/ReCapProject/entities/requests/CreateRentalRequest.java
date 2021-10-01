@@ -3,6 +3,8 @@ package com.etiya.ReCapProject.entities.requests;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 
+import com.etiya.ReCapProject.entities.dtos.CreditCardDetailDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +27,10 @@ public class CreateRentalRequest {
 	private Date returnDate;
 
 	private String returnLocation;
+	
+	private int creditCardId;
+	
+	private CreditCardDetailDto creditCardDetailDto;
+	
+	private boolean isCardSaved;
 }

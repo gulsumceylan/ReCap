@@ -38,16 +38,10 @@ public class InvoicesController {
 		this.invoiceService = invoiceService;
 	}
 
-	@PostMapping("/addforindividulacustomer")
+	@PostMapping("/add")
 	public Result addForIndividualCustomer(@Valid @RequestBody CreateInvoiceRequest createInvoiceRequest ) {
 		
-	return this.invoiceService.addForIndividualCustomer(createInvoiceRequest);
-	}
-	
-	@PostMapping("/addforcorporatecustomer")
-	public Result addForCorporateCustomer(@Valid @RequestBody CreateInvoiceRequest createInvoiceRequest) {
-		
-	return this.invoiceService.addForCorporateCustomer(createInvoiceRequest);
+	return this.invoiceService.add(createInvoiceRequest);
 	}
 	
 	@GetMapping("/getall")
@@ -66,14 +60,9 @@ public class InvoicesController {
 		return this.invoiceService.getByCustomerId(customerId);
 	}
 	
-	@PostMapping("/updateforindividualcustomer")
-	public Result updateForIndividualCustomer(@Valid @RequestBody UpdateInvoiceRequest updateInvoiceRequest) {
-		return this.invoiceService.updateForIndividualCustomer(updateInvoiceRequest);
-	}
-	
-	@PostMapping("/updateforcorporatecustomer")
-	public Result updateForCorporateCustomer(@Valid @RequestBody UpdateInvoiceRequest updateInvoiceRequest) {
-		return this.invoiceService.updateForCorporateCustomer(updateInvoiceRequest);
+	@PostMapping("/update")
+	public Result update(@Valid @RequestBody UpdateInvoiceRequest updateInvoiceRequest) {
+		return this.invoiceService.update(updateInvoiceRequest);
 	}
 	
 	@PutMapping("/delete")

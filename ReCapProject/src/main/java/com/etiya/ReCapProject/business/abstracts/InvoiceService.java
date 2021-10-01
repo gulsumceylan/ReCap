@@ -14,11 +14,9 @@ public interface InvoiceService {
 	
 	DataResult<List<Invoice>> getAll();
 	DataResult<Invoice> getById(int invoiceId);
-    Result addForIndividualCustomer(CreateInvoiceRequest createInvoiceRequest);
-	Result addForCorporateCustomer(CreateInvoiceRequest createInvoiceRequest);
+	Result add(CreateInvoiceRequest createInvoiceRequest);
 	Result delete(DeleteInvoiceRequest deleteInvoiceRequest);
-	Result updateForIndividualCustomer(UpdateInvoiceRequest updateInvoiceRequest);
-	Result updateForCorporateCustomer(UpdateInvoiceRequest updateInvoiceRequest);
+	Result update(UpdateInvoiceRequest updateInvoiceRequest);
 	
 	DataResult<List<Invoice>> getByCustomerId(int customerId);
 	DataResult<List<Invoice>> getByInvoiceDateBetween(InvoiceBetweenDateRequest invoiceBetweenDateRequest);

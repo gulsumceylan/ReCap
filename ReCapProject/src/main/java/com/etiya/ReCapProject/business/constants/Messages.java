@@ -1,8 +1,5 @@
 package com.etiya.ReCapProject.business.constants;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
 public class Messages {
 
 
@@ -19,7 +16,7 @@ public class Messages {
     public static final String CarAdded = "Araba eklendi";
     public static final String CarDeleted = "Araba silindi";
     public static final String CarUpdated = "Araba güncellendi";
-    public static final String NotAvaliableCar = "Araba uygun değil!";
+    public static final String NotAvailableCar = "Araba uygun değil!";
     
     public static final String CarImageAdded = "Araba resmi eklendi";
     public static final String CarImageDeleted = "Araba resmi silindi";
@@ -55,6 +52,7 @@ public class Messages {
     public static final String CreditCardDeleted = "Kredi kartı bilgisi silindi";
     public static final String CreditCardUpdated = "Kredi kartı bilgisi güncellendi";
     public static final String InvalidCreditCard = "Geçersiz kredi kartı";
+    public static final String CreditCardLimitExceeded = "Kredi kartı limiti aşıldı";
     
     public static final String PaymentReceived = "Ödeme alındı.";
     
@@ -75,17 +73,7 @@ public class Messages {
     public static final String SUCCESS = "Başarılı";
     
     
-    
    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }

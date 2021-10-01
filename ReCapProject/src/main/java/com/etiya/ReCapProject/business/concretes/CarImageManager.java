@@ -159,7 +159,6 @@ public class CarImageManager implements CarImageService{
 			System.out.println(file.getContentType());
 			return new ErrorResult(Messages.FormatError);
 			}
-		
 		}
 		
 		return new SuccessResult();
@@ -170,8 +169,6 @@ public class CarImageManager implements CarImageService{
 
 			Car car = new Car();
 			car.setCarId(carId);
-
-			
 
 			CarImage carImage=new CarImage();
 			carImage.setCar(car);

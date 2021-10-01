@@ -115,7 +115,7 @@ public class MaintenanceManager implements MaintenanceService{
 
 	private Result checkReturnFromRental(int carId) {
 		if (this.rentalDao.existsByIsCarReturnedIsFalseAndCar_CarId(carId)) {
-			return new ErrorResult(Messages.NotAvaliableCar);
+			return new ErrorResult(Messages.NotAvailableCar);
 		}
 		return new SuccessResult();
 	}
