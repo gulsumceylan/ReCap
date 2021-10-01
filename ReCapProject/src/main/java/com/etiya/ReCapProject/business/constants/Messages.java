@@ -8,7 +8,7 @@ public class Messages {
 	public static final String BrandAdded = "Marka eklendi";
 	public static final String BrandDeleted = "Marka silindi";
 	public static final String BrandUpdated = "Marka güncellendi";
-	 public static final String ExistBrand = "Bu marka zaten var";
+    public static final String ExistBrand = "Bu marka zaten var";
   
     public static final String ColorAdded = "Renk eklendi";
     public static final String ColorDeleted = "Renk silindi";
@@ -50,6 +50,12 @@ public class Messages {
     public static final String DamageRecordAdded = "Arabanın hasar bilgisi eklendi";
     public static final String DamageRecordDeleted = "Arabanın hasar bilgisi silindi";
     public static final String DamageRecordUpdated = "Arabanın hasar bilgisi güncellendi";
+    
+    public static final String AdditionalServiceAdded = "Arabaya ek servis eklendi";
+    public static final String AdditionalServiceDeleted = "Arabanın ek servisi silindi";
+    public static final String AdditionalServiceUpdated = "Arabanın ek servisi güncellendi";
+    public static final String ExistAdditionService = "Bu ek servis zaten var";
+    
    
     
     public static final String CreditCardAdded = "Kredi kartı bilgisi eklendi";
