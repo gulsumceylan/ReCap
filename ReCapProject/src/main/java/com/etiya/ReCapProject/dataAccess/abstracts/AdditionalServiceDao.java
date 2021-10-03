@@ -7,4 +7,6 @@ import com.etiya.ReCapProject.entities.concretes.AdditionalService;
 public interface AdditionalServiceDao extends JpaRepository<AdditionalService, Integer> {
 
 	boolean existsByName(String name);
+	
+
 }

@@ -96,7 +96,7 @@ public class RentalManager implements RentalService {
 		}
 
 		Car car = this.carService.getById(createRentalRequest.getCarId()).getData();
-
+				
 		Rental rental = new Rental();
 		rental.setRentDate(createRentalRequest.getRentDate());
 		rental.setReturnDate(createRentalRequest.getReturnDate());
@@ -104,9 +104,8 @@ public class RentalManager implements RentalService {
 		rental.setCustomer(customer);
 		rental.setPickUpLocation(car.getCity());
 		rental.setReturnLocation(createRentalRequest.getReturnLocation());
-		rental.setPickUpKm(car.getKm());
+		rental.setPickUpKm(car.getKm());		
 		rental.setTotalAmount(this.calculateTotalAmount(createRentalRequest, 500));
-
 
 		this.rentalDao.save(rental);
 

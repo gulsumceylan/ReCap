@@ -24,7 +24,7 @@ import com.etiya.ReCapProject.entities.requests.update.UpdateRentalRequest;
 @RestController
 @RequestMapping("/api/rentals")
 public class RentalsController {
-	
+
 	private RentalService rentalService;
 
 	@Autowired
@@ -32,29 +32,27 @@ public class RentalsController {
 		super();
 		this.rentalService = rentalService;
 	}
-	
+
 	@PostMapping("/addforindividualcustomer")
 	public Result addForIndividualCustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
-		
-	return this.rentalService.addForIndividualCustomer(createRentalRequest);
+
+		return this.rentalService.addForIndividualCustomer(createRentalRequest);
 	}
-	
+
 	@PostMapping("/addforcorporatecustomer")
 	public Result addForCorporateustomer(@Valid @RequestBody CreateRentalRequest createRentalRequest) {
-		
-	return this.rentalService.addForCorporateCustomer(createRentalRequest);
+
+		return this.rentalService.addForCorporateCustomer(createRentalRequest);
 	}
-	
-	
-	
+
 	@GetMapping("/getall")
-	public DataResult<List<Rental>> getAll(){
-		
+	public DataResult<List<Rental>> getAll() {
+
 		return this.rentalService.getAll();
 	}
-	
+
 	@GetMapping("/getById")
-	public DataResult<Rental> getById(int rentalId){
+	public DataResult<Rental> getById(int rentalId) {
 		return this.rentalService.getById(rentalId);
 	}
 	
@@ -62,17 +60,17 @@ public class RentalsController {
 	public Result updateForCorporateCustomer(@Valid @RequestBody UpdateRentalRequest updateRentalRequest) {
 		return this.rentalService.updateForCorporateCustomer(updateRentalRequest);
 	}
-	
+
 	@PostMapping("/updateforindividualcustomer")
 	public Result updateForIndividualCustomer(@Valid @RequestBody UpdateRentalRequest updateRentalRequest) {
 		return this.rentalService.updateForIndividualCustomer(updateRentalRequest);
 	}
-	
+
 	@PutMapping("/delete")
 	public Result delete(@Valid @RequestBody DeleteRentalRequest deleteRentalRequest) {
 		return this.rentalService.delete(deleteRentalRequest);
 	}
-	
+
 	@PostMapping("validateCarReturned")
 	public Result validateCarReturned(@Valid @RequestBody CarReturnedRequest carReturnedRequest) {
 		return this.rentalService.validateCarReturned(carReturnedRequest);
