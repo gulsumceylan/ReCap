@@ -15,9 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-@EqualsAndHashCode(callSuper = false)
 @Data
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
@@ -35,8 +33,8 @@ public class AdditionalService {
 	@Column(name="description")
 	private String description;
 	
-	@Column(name="price")
-	private int price;
+	@Column(name="daily_price")
+	private double dailyPrice;
 	
 	@JsonIgnore
 	@ManyToOne
