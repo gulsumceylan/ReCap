@@ -1,5 +1,7 @@
 package com.etiya.ReCapProject.entities.dtos;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class InvoiceDetailDto {
-	private String invoiceNumber;
+	
+private int invoiceId;
+
+	private int invoiceNumber;
+
+	private Date invoiceDate;
+	
+	private int totalRentalDay;
+
+	private double totalAmount;
+	
 	private int customerId;
 	
 	

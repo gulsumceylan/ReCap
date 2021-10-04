@@ -1,8 +1,5 @@
 package com.etiya.ReCapProject.business.constants;
 
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
 public class Messages {
 	
 	public static final String BrandAdded = "Marka eklendi";

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.etiya.ReCapProject.business.abstracts.RentalService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
-import com.etiya.ReCapProject.entities.concretes.Rental;
+import com.etiya.ReCapProject.entities.dtos.RentalDetailDto;
 import com.etiya.ReCapProject.entities.requests.CarReturnedRequest;
 import com.etiya.ReCapProject.entities.requests.create.CreateRentalRequest;
 import com.etiya.ReCapProject.entities.requests.delete.DeleteRentalRequest;
@@ -46,13 +46,13 @@ public class RentalsController {
 	}
 
 	@GetMapping("/getall")
-	public DataResult<List<Rental>> getAll() {
+	public DataResult<List<RentalDetailDto>> getAll() {
 
 		return this.rentalService.getAll();
 	}
 
 	@GetMapping("/getById")
-	public DataResult<Rental> getById(int rentalId) {
+	public DataResult<RentalDetailDto> getById(int rentalId) {
 		return this.rentalService.getById(rentalId);
 	}
 	

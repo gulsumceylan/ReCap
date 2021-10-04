@@ -3,8 +3,6 @@ package com.etiya.ReCapProject.entities.dtos;
 import java.util.Date;
 import java.util.List;
 
-import com.etiya.ReCapProject.entities.concretes.AdditionalService;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +26,7 @@ public class RentalDetailDto {
 
 	private double totalAmount;
 
-	private List<AdditionalService> additionalServices;
+	private List<AdditionalServiceDto> additionalServiceDtos;
+	
+	private CustomerDetailDto customerDetailDto;
 }

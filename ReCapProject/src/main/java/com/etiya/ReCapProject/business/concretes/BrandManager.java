@@ -1,7 +1,9 @@
 package com.etiya.ReCapProject.business.concretes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.BrandDao;
 import com.etiya.ReCapProject.entities.concretes.Brand;
+import com.etiya.ReCapProject.entities.dtos.BrandDetailDto;
 import com.etiya.ReCapProject.entities.requests.create.CreateBrandRequest;
 import com.etiya.ReCapProject.entities.requests.delete.DeleteBrandRequest;
 import com.etiya.ReCapProject.entities.requests.update.UpdateBrandRequest;
@@ -23,21 +26,30 @@ import com.etiya.ReCapProject.entities.requests.update.UpdateBrandRequest;
 public class BrandManager implements BrandService{
 	
 	private BrandDao brandDao;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	public BrandManager(BrandDao brandDao) {
+	public BrandManager(BrandDao brandDao,ModelMapper modelMapper) {
 		super();
 		this.brandDao = brandDao;
+		this.modelMapper=modelMapper;
 	}
 
 	@Override
-	public DataResult<List<Brand>> getAll() {
-		return new SuccessDataResult<List<Brand>>(this.brandDao.findAll());
+	public DataResult<List<BrandDetailDto>> getAll() {
+		List<Brand> brands= this.brandDao.findAll();
+		List<BrandDetailDto> brandDetailDtos=brands.stream().map(brand -> modelMapper.map(brand, BrandDetailDto.class)).collect(Collectors.toList());
+		
+		return new SuccessDataResult<List<BrandDetailDto>>(brandDetailDtos);
 	}
 
 	@Override
-	public DataResult<Brand> getById(int brandId) {
-		return new SuccessDataResult<Brand> (this.brandDao.getById(brandId));
+	public DataResult<BrandDetailDto> getById(int brandId) {
+		
+		Brand brand= this.brandDao.getById(brandId);
+	    BrandDetailDto brandDetailDto=modelMapper.map(brand, BrandDetailDto.class);
+		
+		return new SuccessDataResult<BrandDetailDto>(brandDetailDto);
 	}
 
 	@Override

@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class IndividualCustomer extends Customer {
 	
-	
 	@Column(name = "first_name")
 	private String firstName;
 	

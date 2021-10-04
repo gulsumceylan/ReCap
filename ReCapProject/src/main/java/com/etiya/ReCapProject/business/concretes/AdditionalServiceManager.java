@@ -1,7 +1,9 @@
 package com.etiya.ReCapProject.business.concretes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.AdditionalServiceDao;
 import com.etiya.ReCapProject.entities.concretes.AdditionalService;
+import com.etiya.ReCapProject.entities.dtos.AdditionalServiceDetailDto;
 import com.etiya.ReCapProject.entities.requests.create.CreateAdditionalServiceRequest;
 import com.etiya.ReCapProject.entities.requests.delete.DeleteAdditionalServiceRequest;
 import com.etiya.ReCapProject.entities.requests.update.UpdateAdditionalServiceRequest;
@@ -22,21 +25,39 @@ import com.etiya.ReCapProject.entities.requests.update.UpdateAdditionalServiceRe
 @Service
 public class AdditionalServiceManager implements AdditionalServiceService{
 	private AdditionalServiceDao additionalServiceDao;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao) {
+	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao,ModelMapper modelMapper) {
 		super();
 		this.additionalServiceDao = additionalServiceDao;
+		this.modelMapper=modelMapper;
 	}
 
 	@Override
-	public DataResult<List<AdditionalService>> getAll() {
-		return new SuccessDataResult<List<AdditionalService>>(this.additionalServiceDao.findAll());
+	public DataResult<List<AdditionalServiceDetailDto>> getAll() {
+		List<AdditionalService> additionalServices=this.additionalServiceDao.findAll();	
+		List<AdditionalServiceDetailDto> additionalServiceDetailDtos=additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
+		
+		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
 	@Override
-	public DataResult<AdditionalService> getById(int id) {
-		return new SuccessDataResult<AdditionalService>(this.additionalServiceDao.getById(id));
+	public DataResult<AdditionalServiceDetailDto> getById(int id) {
+		AdditionalService additionalService= this.additionalServiceDao.getById(id);
+		AdditionalServiceDetailDto additionalServiceDetailDto=modelMapper.map(additionalService, AdditionalServiceDetailDto.class);
+
+		return new SuccessDataResult<AdditionalServiceDetailDto>(additionalServiceDetailDto);
+	}
+	
+	@Override
+	public DataResult<List<AdditionalServiceDetailDto>> getByRentalId(int rentalId) {
+		List<AdditionalService> additionalServices= this.additionalServiceDao.getByRentals_Id(rentalId);
+		
+		List<AdditionalServiceDetailDto> additionalServiceDetailDtos=additionalServices.stream().map(additionalService -> modelMapper
+				.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
+			
+		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
 	@Override
