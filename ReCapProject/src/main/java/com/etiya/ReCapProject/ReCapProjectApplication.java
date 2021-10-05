@@ -1,8 +1,9 @@
 package com.etiya.ReCapProject;
 
+
+
 import java.util.HashMap;
 import java.util.Map;
-
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -51,6 +52,7 @@ public class ReCapProjectApplication {
 		= new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
 		return errors;
 	}
-
+	
+	
 
 }

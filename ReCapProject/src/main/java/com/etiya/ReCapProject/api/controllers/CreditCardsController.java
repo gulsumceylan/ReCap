@@ -16,9 +16,9 @@ import com.etiya.ReCapProject.business.abstracts.CreditCardService;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.dtos.CreditCardDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateCreditCardRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteCreditCardRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateCreditCardRequest;
+import com.etiya.ReCapProject.entities.requests.creditCard.CreateCreditCardRequest;
+import com.etiya.ReCapProject.entities.requests.creditCard.DeleteCreditCardRequest;
+import com.etiya.ReCapProject.entities.requests.creditCard.UpdateCreditCardRequest;
 
 @RestController
 @RequestMapping("/api/creditcards")
@@ -48,6 +48,11 @@ public class CreditCardsController {
 	@GetMapping("/getById")
 	public DataResult<CreditCardDetailDto> getById(int creditCardId){
 		return this.creditCardService.getById(creditCardId);
+	}
+	
+	@GetMapping("/getbycustomerid")
+	public DataResult<List<CreditCardDetailDto>> getByCustomerId(int customerId){
+		return this.creditCardService.getByCustomerId(customerId);
 	}
 	
 	@PutMapping("/delete")

@@ -19,9 +19,9 @@ import com.etiya.ReCapProject.dataAccess.abstracts.CorporateCustomerDao;
 import com.etiya.ReCapProject.dataAccess.abstracts.UserDao;
 import com.etiya.ReCapProject.entities.concretes.CorporateCustomer;
 import com.etiya.ReCapProject.entities.dtos.CorporateCustomerDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateCorporateCustomerRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteCorporateCustomerRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateCorporateCustomerRequest;
+import com.etiya.ReCapProject.entities.requests.corporateCustomer.CreateCorporateCustomerRequest;
+import com.etiya.ReCapProject.entities.requests.corporateCustomer.DeleteCorporateCustomerRequest;
+import com.etiya.ReCapProject.entities.requests.corporateCustomer.UpdateCorporateCustomerRequest;
 
 @Service
 public class CorporateCustomerManager implements CorporateCustomerService {
@@ -31,29 +31,31 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 	private ModelMapper modelMapper;
 
 	@Autowired
-	public CorporateCustomerManager(CorporateCustomerDao corporateCustomerDao, UserDao userDao,ModelMapper modelMapper) {
+	public CorporateCustomerManager(CorporateCustomerDao corporateCustomerDao, UserDao userDao,
+			ModelMapper modelMapper) {
 		super();
 		this.corporateCustomerDao = corporateCustomerDao;
 		this.userDao = userDao;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
 	public DataResult<List<CorporateCustomerDetailDto>> getAll() {
 		List<CorporateCustomer> corporateCustomers = this.corporateCustomerDao.findAll();
-		List<CorporateCustomerDetailDto> corporateCustomerDetailDtos = corporateCustomers.stream()
-				.map(corporateCustomer -> modelMapper.map(corporateCustomer, CorporateCustomerDetailDto.class)).collect(Collectors.toList());
 
-		return new SuccessDataResult<List<CorporateCustomerDetailDto>>(corporateCustomerDetailDtos);
+		List<CorporateCustomerDetailDto> corporateCustomerDetailDto = corporateCustomers.stream()
+				.map(corporateCustomer -> modelMapper.map(corporateCustomer, CorporateCustomerDetailDto.class))
+				.collect(Collectors.toList());
+		return new SuccessDataResult<List<CorporateCustomerDetailDto>>(corporateCustomerDetailDto);
 	}
 
 	@Override
 	public DataResult<CorporateCustomerDetailDto> getById(int id) {
-		CorporateCustomer corporateCustomers= this.corporateCustomerDao.getById(id);
-		CorporateCustomerDetailDto corporateCustomerDetailDtos=modelMapper.map(corporateCustomers, CorporateCustomerDetailDto.class);
-		
-		
-		return new SuccessDataResult<CorporateCustomerDetailDto>(corporateCustomerDetailDtos);
+		CorporateCustomer corporateCustomer = this.corporateCustomerDao.getById(id);
+		CorporateCustomerDetailDto corporateCustomerDetailDto = modelMapper.map(corporateCustomer,
+				CorporateCustomerDetailDto.class);
+
+		return new SuccessDataResult<CorporateCustomerDetailDto>(corporateCustomerDetailDto);
 	}
 
 	@Override
@@ -66,11 +68,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 			return result;
 		}
 
-		CorporateCustomer corporateCustomer = new CorporateCustomer();
-		corporateCustomer.setTaxNumber(createCorporateCustomerRequest.getTaxNumber());
-		corporateCustomer.setCompanyName(createCorporateCustomerRequest.getCompanyName());
-		corporateCustomer.setEmail(createCorporateCustomerRequest.getEmail());
-		corporateCustomer.setPassword(createCorporateCustomerRequest.getPassword());
+		CorporateCustomer corporateCustomer = modelMapper.map(createCorporateCustomerRequest, CorporateCustomer.class);
 
 		this.corporateCustomerDao.save(corporateCustomer);
 		return new SuccessResult(Messages.CustomerAdded);
@@ -79,8 +77,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 	@Override
 	public Result delete(DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
 
-		CorporateCustomer corporateCustomer = new CorporateCustomer();
-		corporateCustomer.setId(deleteCorporateCustomerRequest.getId());
+		CorporateCustomer corporateCustomer = modelMapper.map(deleteCorporateCustomerRequest, CorporateCustomer.class);
 
 		this.corporateCustomerDao.delete(corporateCustomer);
 		return new SuccessResult(Messages.CustomerDeleted);
@@ -89,12 +86,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 	@Override
 	public Result update(UpdateCorporateCustomerRequest updateCorporateCustomerRequest) {
 
-		CorporateCustomer corporateCustomer = new CorporateCustomer();
-		corporateCustomer.setTaxNumber(updateCorporateCustomerRequest.getTaxNumber());
-		corporateCustomer.setCompanyName(updateCorporateCustomerRequest.getCompanyName());
-		corporateCustomer.setEmail(updateCorporateCustomerRequest.getEmail());
-		corporateCustomer.setPassword(updateCorporateCustomerRequest.getPassword());
-		corporateCustomer.setId(updateCorporateCustomerRequest.getId());
+		CorporateCustomer corporateCustomer = modelMapper.map(updateCorporateCustomerRequest, CorporateCustomer.class);
 
 		this.corporateCustomerDao.save(corporateCustomer);
 		return new SuccessResult(Messages.CustomerUpdated);

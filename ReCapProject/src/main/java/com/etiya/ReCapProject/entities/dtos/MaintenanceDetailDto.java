@@ -7,15 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class MaintenanceDetailDto {
+	
 	private int maintenanceId;
-
+	
 	private Date maintenanceDate;
-
+	
 	private Date returnDate;
 
 	private String carName;
-
+	
+	
 }

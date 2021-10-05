@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 
 public class InvoiceDetailDto {
 	
-private int invoiceId;
-
-	private int invoiceNumber;
-
+	private int invoiceId;
+	
+	private String invoiceNumber;
+	
 	private Date invoiceDate;
 	
 	private int totalRentalDay;
-
+	
 	private double totalAmount;
 	
-	private int customerId;
+	private int rentalId;
 	
 	
 }

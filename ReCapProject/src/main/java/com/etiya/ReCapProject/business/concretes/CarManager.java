@@ -1,7 +1,7 @@
 package com.etiya.ReCapProject.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +18,9 @@ import com.etiya.ReCapProject.entities.concretes.Brand;
 import com.etiya.ReCapProject.entities.concretes.Car;
 import com.etiya.ReCapProject.entities.concretes.Color;
 import com.etiya.ReCapProject.entities.dtos.CarDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateCarRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteCarRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.CreateCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.DeleteCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.UpdateCarRequest;
 
 @Service
 public class CarManager implements CarService {
@@ -38,50 +38,26 @@ public class CarManager implements CarService {
 	public DataResult<List<CarDetailDto>> getAvailableCars() {
 		List<Car> cars = this.carDao.getByIsAvailableIsTrue();
 
-		List<CarDetailDto> carDetailDtos = cars.stream().map(car -> modelMapper.map(car, CarDetailDto.class))
-				.collect(Collectors.toList());
-
-		return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+		return new SuccessDataResult<List<CarDetailDto>>(this.getCarDetailDtos(cars));
 	}
 
 	@Override
 	public DataResult<CarDetailDto> getById(int carId) {
 		Car car = this.carDao.getById(carId);
-		CarDetailDto carDetailDto = modelMapper.map(car, CarDetailDto.class);
+		CarDetailDto carDetailDtos = modelMapper.map(car, CarDetailDto.class);
+		carDetailDtos.setBrandName(car.getBrand().getBrandName());
+		carDetailDtos.setColorName(car.getColor().getColorName());
 
-		return new SuccessDataResult<CarDetailDto>(carDetailDto);
-	}
-
-	@Override
-	public DataResult<CarDetailDto> getCarDetailByCarId(int carId) {
-		Car car = this.carDao.getById(carId);
-
-		CarDetailDto carDetailDto = new CarDetailDto();
-		carDetailDto.setCarName(car.getCarName());
-		carDetailDto.setBrandName(car.getBrand().getBrandName());
-		carDetailDto.setColorName(car.getColor().getColorName());
-		carDetailDto.setDailyPrice(car.getDailyPrice());
-
-		return new SuccessDataResult<CarDetailDto>(carDetailDto);
+		return new SuccessDataResult<CarDetailDto>(carDetailDtos);
 	}
 
 	@Override
 	public Result add(CreateCarRequest createCarRequest) {
-		Brand brand = new Brand();
-		brand.setBrandId(createCarRequest.getBrandId());
-		Color color = new Color();
-		color.setColorId(createCarRequest.getColorId());
+		Brand brand = modelMapper.map(createCarRequest, Brand.class);
+		Color color = modelMapper.map(createCarRequest, Color.class);
 
-		Car car = new Car();
-		car.setCarName(createCarRequest.getCarName());
-		car.setDailyPrice(createCarRequest.getDailyPrice());
-		car.setDescription(createCarRequest.getDescription());
-		car.setModelYear(createCarRequest.getModelYear());
-		car.setMinFindexScore(createCarRequest.getMinFindexScore());
-		car.setCity(createCarRequest.getCity());
-		car.setKm(createCarRequest.getKm());
+		Car car = modelMapper.map(createCarRequest, Car.class);
 		car.setAvailable(true);
-
 		car.setBrand(brand);
 		car.setColor(color);
 
@@ -93,8 +69,7 @@ public class CarManager implements CarService {
 	@Override
 	public Result delete(DeleteCarRequest deleteCarRequest) {
 
-		Car car = new Car();
-		car.setCarId(deleteCarRequest.getCarId());
+		Car car = modelMapper.map(deleteCarRequest, Car.class);
 
 		this.carDao.delete(car);
 		return new SuccessResult(Messages.CarDeleted);
@@ -102,28 +77,15 @@ public class CarManager implements CarService {
 
 	@Override
 	public Result update(UpdateCarRequest updateCarRequest) {
+		Brand brand = modelMapper.map(updateCarRequest, Brand.class);
+		Color color = modelMapper.map(updateCarRequest, Color.class);
 
-		Brand brand = new Brand();
-		brand.setBrandId(updateCarRequest.getBrandId());
-		Color color = new Color();
-		color.setColorId(updateCarRequest.getColorId());
-
-		Car car = new Car();
-		car.setCarId(updateCarRequest.getCarId());
-		car.setCarName(updateCarRequest.getCarName());
-		car.setDailyPrice(updateCarRequest.getDailyPrice());
-		car.setDescription(updateCarRequest.getDescription());
-		car.setModelYear(updateCarRequest.getModelYear());
-		car.setMinFindexScore(updateCarRequest.getMinFindexScore());
-		car.setCity(updateCarRequest.getCity());
-		car.setKm(updateCarRequest.getKm());
-
+		Car car = modelMapper.map(updateCarRequest, Car.class);
 		car.setBrand(brand);
 		car.setColor(color);
 
 		this.carDao.save(car);
 		return new SuccessResult(Messages.CarUpdated);
-
 	}
 
 	@Override
@@ -132,33 +94,38 @@ public class CarManager implements CarService {
 	}
 
 	@Override
-	public DataResult<List<CarDetailDto>> getByBrandId(int branId) {
-		List<Car> cars = this.carDao.getByBrand_BrandId(branId);
+	public DataResult<List<CarDetailDto>> getByBrandId(int brandId) {
+		List<Car> cars = this.carDao.getByBrand_BrandId(brandId);
 
-		List<CarDetailDto> carDetailDtos = cars.stream().map(car -> modelMapper.map(car, CarDetailDto.class))
-				.collect(Collectors.toList());
-
-		return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+		return new SuccessDataResult<List<CarDetailDto>>(this.getCarDetailDtos(cars));
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getByColorId(int colorId) {
 		List<Car> cars = this.carDao.getByColor_ColorId(colorId);
 
-		List<CarDetailDto> carDetailDtos = cars.stream().map(car -> modelMapper.map(car, CarDetailDto.class))
-				.collect(Collectors.toList());
-
-		return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+		return new SuccessDataResult<List<CarDetailDto>>(this.getCarDetailDtos(cars));
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getByCity(String city) {
 		List<Car> cars = this.carDao.getByCity(city);
+		
+		return new SuccessDataResult<List<CarDetailDto>>(this.getCarDetailDtos(cars));
+	}
 
-		List<CarDetailDto> carDetailDtos = cars.stream().map(car -> modelMapper.map(car, CarDetailDto.class))
-				.collect(Collectors.toList());
+	
+	private List<CarDetailDto> getCarDetailDtos(List<Car> cars) {
+		List<CarDetailDto> carDetailDtos = new ArrayList<CarDetailDto>();
 
-		return new SuccessDataResult<List<CarDetailDto>>(carDetailDtos);
+		for (Car car : cars) {
+			CarDetailDto carDetailDto = modelMapper.map(car, CarDetailDto.class);
+			carDetailDto.setBrandName(this.carDao.getById(car.getCarId()).getBrand().getBrandName());
+			carDetailDto.setColorName(this.carDao.getById(car.getCarId()).getColor().getColorName());
+
+			carDetailDtos.add(carDetailDto);
+		}
+		return carDetailDtos;
 	}
 
 }

@@ -18,9 +18,9 @@ import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.BrandDao;
 import com.etiya.ReCapProject.entities.concretes.Brand;
 import com.etiya.ReCapProject.entities.dtos.BrandDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateBrandRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteBrandRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateBrandRequest;
+import com.etiya.ReCapProject.entities.requests.brand.CreateBrandRequest;
+import com.etiya.ReCapProject.entities.requests.brand.DeleteBrandRequest;
+import com.etiya.ReCapProject.entities.requests.brand.UpdateBrandRequest;
 
 @Service
 public class BrandManager implements BrandService{
@@ -32,22 +32,22 @@ public class BrandManager implements BrandService{
 	public BrandManager(BrandDao brandDao,ModelMapper modelMapper) {
 		super();
 		this.brandDao = brandDao;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
 	public DataResult<List<BrandDetailDto>> getAll() {
-		List<Brand> brands= this.brandDao.findAll();
-		List<BrandDetailDto> brandDetailDtos=brands.stream().map(brand -> modelMapper.map(brand, BrandDetailDto.class)).collect(Collectors.toList());
 		
+		 List<Brand> brands= this.brandDao.findAll();
+		 
+		 List<BrandDetailDto> brandDetailDtos=brands.stream().map(brand -> modelMapper.map(brand, BrandDetailDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<BrandDetailDto>>(brandDetailDtos);
 	}
 
 	@Override
 	public DataResult<BrandDetailDto> getById(int brandId) {
-		
-		Brand brand= this.brandDao.getById(brandId);
-	    BrandDetailDto brandDetailDto=modelMapper.map(brand, BrandDetailDto.class);
+		Brand brand = this.brandDao.getById(brandId);
+		BrandDetailDto brandDetailDto = modelMapper.map(brand,BrandDetailDto.class);
 		
 		return new SuccessDataResult<BrandDetailDto>(brandDetailDto);
 	}
@@ -61,8 +61,7 @@ public class BrandManager implements BrandService{
 			return result;
 		}
 				
-		Brand brand = new Brand();
-		brand.setBrandName(createBrandrequest.getBrandName());
+		Brand brand = modelMapper.map(createBrandrequest,Brand.class);
 		
 		this.brandDao.save(brand);
 		return new SuccessResult( Messages.BrandAdded);
@@ -71,8 +70,7 @@ public class BrandManager implements BrandService{
 	@Override
 	public Result delete(DeleteBrandRequest deleteBrandrequest) {
 		
-		Brand brand = new Brand();
-		brand.setBrandId(deleteBrandrequest.getBrandId());
+		Brand brand = modelMapper.map(deleteBrandrequest,Brand.class);
 		
 		this.brandDao.delete(brand);
 		return new SuccessResult( Messages.BrandDeleted);
@@ -87,9 +85,7 @@ public class BrandManager implements BrandService{
 			return result;
 		}
 		
-		Brand brand = new Brand();
-		brand.setBrandName(updateBrandrequest.getBrandName());
-		brand.setBrandId(updateBrandrequest.getBrandId());
+		Brand brand = modelMapper.map(updateBrandrequest,Brand.class);
 		
 		this.brandDao.save(brand);
 		return new SuccessResult(Messages.BrandUpdated);

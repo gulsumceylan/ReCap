@@ -5,9 +5,9 @@ import java.util.List;
 import com.etiya.ReCapProject.core.utilities.results.DataResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.dtos.CarDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateCarRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteCarRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.CreateCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.DeleteCarRequest;
+import com.etiya.ReCapProject.entities.requests.car.UpdateCarRequest;
 
 public interface CarService {
 	
@@ -17,16 +17,11 @@ public interface CarService {
 	Result update(UpdateCarRequest updateCarRequest);
 	
 	DataResult<List<CarDetailDto>> getCarDetails();
-	
-	DataResult<List<CarDetailDto>> getByBrandId(int branId);
-	
+	DataResult<List<CarDetailDto>> getByBrandId(int brandId);
 	DataResult<List<CarDetailDto>> getByColorId(int colorId);
-	
 	DataResult<List<CarDetailDto>> getAvailableCars();
-	
 	DataResult<List<CarDetailDto>> getByCity(String city);
 	
-	DataResult<CarDetailDto> getCarDetailByCarId(int carId);
 	
 
 }

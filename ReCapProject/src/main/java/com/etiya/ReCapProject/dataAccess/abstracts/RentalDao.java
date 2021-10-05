@@ -14,5 +14,5 @@ public interface RentalDao extends JpaRepository<Rental, Integer> {
 	boolean existsByIsCarReturnedIsFalseAndCar_CarId(int carId);
 	
 	List<RentalDetailDto> getByCustomer_Id(int customerId);
-
+	
 }

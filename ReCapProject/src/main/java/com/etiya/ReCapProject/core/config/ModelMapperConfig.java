@@ -10,7 +10,7 @@ public class ModelMapperConfig {
 	
 	@Bean
 	public ModelMapper getModelMapper() {
-		ModelMapper modelMapper=new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 		return modelMapper;
 	}

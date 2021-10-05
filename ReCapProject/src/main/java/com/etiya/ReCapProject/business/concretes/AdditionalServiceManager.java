@@ -18,9 +18,9 @@ import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.AdditionalServiceDao;
 import com.etiya.ReCapProject.entities.concretes.AdditionalService;
 import com.etiya.ReCapProject.entities.dtos.AdditionalServiceDetailDto;
-import com.etiya.ReCapProject.entities.requests.create.CreateAdditionalServiceRequest;
-import com.etiya.ReCapProject.entities.requests.delete.DeleteAdditionalServiceRequest;
-import com.etiya.ReCapProject.entities.requests.update.UpdateAdditionalServiceRequest;
+import com.etiya.ReCapProject.entities.requests.additionalService.CreateAdditionalServiceRequest;
+import com.etiya.ReCapProject.entities.requests.additionalService.DeleteAdditionalServiceRequest;
+import com.etiya.ReCapProject.entities.requests.additionalService.UpdateAdditionalServiceRequest;
 
 @Service
 public class AdditionalServiceManager implements AdditionalServiceService{
@@ -31,32 +31,31 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao,ModelMapper modelMapper) {
 		super();
 		this.additionalServiceDao = additionalServiceDao;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
 
 	@Override
 	public DataResult<List<AdditionalServiceDetailDto>> getAll() {
-		List<AdditionalService> additionalServices=this.additionalServiceDao.findAll();	
-		List<AdditionalServiceDetailDto> additionalServiceDetailDtos=additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
-		
+		List<AdditionalService> additionalServices= this.additionalServiceDao.findAll();
+		 
+		List<AdditionalServiceDetailDto> additionalServiceDetailDtos =additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
 	@Override
 	public DataResult<AdditionalServiceDetailDto> getById(int id) {
-		AdditionalService additionalService= this.additionalServiceDao.getById(id);
-		AdditionalServiceDetailDto additionalServiceDetailDto=modelMapper.map(additionalService, AdditionalServiceDetailDto.class);
-
+		AdditionalService additionalService = this.additionalServiceDao.getById(id);
+		AdditionalServiceDetailDto additionalServiceDetailDto = modelMapper.map(additionalService,AdditionalServiceDetailDto.class);
+		
 		return new SuccessDataResult<AdditionalServiceDetailDto>(additionalServiceDetailDto);
 	}
 	
 	@Override
 	public DataResult<List<AdditionalServiceDetailDto>> getByRentalId(int rentalId) {
-		List<AdditionalService> additionalServices= this.additionalServiceDao.getByRentals_Id(rentalId);
 		
-		List<AdditionalServiceDetailDto> additionalServiceDetailDtos=additionalServices.stream().map(additionalService -> modelMapper
-				.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
-			
+		List<AdditionalService> additionalServices= this.additionalServiceDao.getByRentals_Id(rentalId);
+		 
+		 List<AdditionalServiceDetailDto> additionalServiceDetailDtos =additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
@@ -69,10 +68,7 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 			return result;
 		}
 		
-		AdditionalService additionalService=new AdditionalService();
-		additionalService.setName(createAdditionalServiceRequest.getName());
-		additionalService.setDescription(createAdditionalServiceRequest.getDescription());
-		additionalService.setDailyPrice(createAdditionalServiceRequest.getDailyPrice());
+		AdditionalService additionalService = modelMapper.map(createAdditionalServiceRequest,AdditionalService.class);
 		
 		this.additionalServiceDao.save(additionalService);
 		return new SuccessResult(Messages.AdditionalServiceAdded);
@@ -80,8 +76,7 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 
 	@Override
 	public Result delete(DeleteAdditionalServiceRequest deleteAdditionalServiceRequest) {
-		AdditionalService additionalService=new AdditionalService();
-		additionalService.setId(deleteAdditionalServiceRequest.getId());
+		AdditionalService additionalService = modelMapper.map(deleteAdditionalServiceRequest,AdditionalService.class);
 		
 		this.additionalServiceDao.delete(additionalService);
 		return new SuccessResult(Messages.AdditionalServiceDeleted);
@@ -95,11 +90,7 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 			return result;
 		}
 		
-		AdditionalService additionalService=new AdditionalService();
-		additionalService.setId(updateAdditionalServiceRequest.getId());
-		additionalService.setName(updateAdditionalServiceRequest.getName());
-		additionalService.setDescription(updateAdditionalServiceRequest.getDescription());
-		additionalService.setDailyPrice(updateAdditionalServiceRequest.getDailyPrice());
+		AdditionalService additionalService = modelMapper.map(updateAdditionalServiceRequest,AdditionalService.class);
 		
 		this.additionalServiceDao.save(additionalService);
 		return new SuccessResult(Messages.AdditionalServiceUpdated);
