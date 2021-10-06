@@ -46,6 +46,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 		List<CorporateCustomerDetailDto> corporateCustomerDetailDto = corporateCustomers.stream()
 				.map(corporateCustomer -> modelMapper.map(corporateCustomer, CorporateCustomerDetailDto.class))
 				.collect(Collectors.toList());
+		
 		return new SuccessDataResult<List<CorporateCustomerDetailDto>>(corporateCustomerDetailDto);
 	}
 

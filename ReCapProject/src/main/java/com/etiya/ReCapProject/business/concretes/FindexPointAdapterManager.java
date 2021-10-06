@@ -19,8 +19,4 @@ public class FindexPointAdapterManager implements FindexPointService {
 		FindexService findexService = new FindexService();
 		return findexService.getCorporateCustomerFindexPoint(taxNumber);
 	}
-
-	
-	
-	
 }

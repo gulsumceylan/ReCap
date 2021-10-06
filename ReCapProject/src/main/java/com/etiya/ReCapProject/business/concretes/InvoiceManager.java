@@ -1,9 +1,9 @@
 package com.etiya.ReCapProject.business.concretes;
 
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,14 +44,8 @@ public class InvoiceManager implements InvoiceService {
 	public DataResult<List<InvoiceDetailDto>> getAll() {
 		List<Invoice> invoices= this.invoiceDao.findAll();
 		
-		List<InvoiceDetailDto> invoiceDetailDtos = new ArrayList<InvoiceDetailDto>();
-
-		for (Invoice invoice : invoices) {
-			InvoiceDetailDto invoiceDetailDto = modelMapper.map(invoice, InvoiceDetailDto.class);
-			invoiceDetailDto.setRentalId(this.rentalDao.getById(invoice.getRental().getId()).getId());
-
-			invoiceDetailDtos.add(invoiceDetailDto);
-		}
+		List<InvoiceDetailDto> invoiceDetailDtos = invoices.stream()
+				.map(invoice -> modelMapper.map(invoice, InvoiceDetailDto.class)).collect(Collectors.toList());
 		 
 		return new SuccessDataResult<List<InvoiceDetailDto>>(invoiceDetailDtos);
 	}
@@ -60,7 +54,6 @@ public class InvoiceManager implements InvoiceService {
 	public DataResult<InvoiceDetailDto> getById(int invoiceId) {
 		Invoice invoice = this.invoiceDao.getById(invoiceId);
 		InvoiceDetailDto invoiceDetailDto = modelMapper.map(invoice,InvoiceDetailDto.class);
-		invoiceDetailDto.setRentalId(this.rentalDao.getById(invoice.getRental().getId()).getId());
 		
 		return new SuccessDataResult<InvoiceDetailDto>(invoiceDetailDto);
 	}
@@ -79,7 +72,6 @@ public class InvoiceManager implements InvoiceService {
 		invoice.setInvoiceDate(now);
 		invoice.setTotalRentalDay((int)totalRentalDay);
 		invoice.setTotalAmount(totalAmount);
-		invoice.setRental(rental);
 
 		this.invoiceDao.save(invoice);
 		return new SuccessResult(Messages.InvoiceAdded);
@@ -108,7 +100,6 @@ public class InvoiceManager implements InvoiceService {
 		invoice.setInvoiceDate(now);
 		invoice.setTotalRentalDay((int)totalRentalDay);
 		invoice.setTotalAmount(totalAmount);
-		invoice.setRental(rental);
 
 		this.invoiceDao.save(invoice);
 		return new SuccessResult(Messages.InvoiceUpdated);
@@ -118,14 +109,8 @@ public class InvoiceManager implements InvoiceService {
 	public DataResult<List<InvoiceDetailDto>> getByCustomerId(int customerId) {
 		List<Invoice> invoices= this.invoiceDao.getByRental_Customer_Id(customerId);
 		
-		List<InvoiceDetailDto> invoiceDetailDtos=new ArrayList<InvoiceDetailDto>();
-		 
-		for (Invoice invoice : invoices) {
-			InvoiceDetailDto invoiceDetailDto = modelMapper.map(invoice, InvoiceDetailDto.class);
-			invoiceDetailDto.setRentalId(this.rentalDao.getById(invoice.getRental().getId()).getId());
-
-			invoiceDetailDtos.add(invoiceDetailDto);
-		}
+		List<InvoiceDetailDto> invoiceDetailDtos = invoices.stream()
+				.map(invoice -> modelMapper.map(invoice, InvoiceDetailDto.class)).collect(Collectors.toList());
 		
 		return new SuccessDataResult<List<InvoiceDetailDto>>(invoiceDetailDtos);
 	}
@@ -135,14 +120,8 @@ public class InvoiceManager implements InvoiceService {
 	public DataResult<List<InvoiceDetailDto>> getByInvoiceDateBetween(InvoiceBetweenDateRequest invoiceBetweenDateRequest) {	
 		List<Invoice> invoices= this.invoiceDao.getByInvoiceDateBetween(invoiceBetweenDateRequest.getStartDate(), invoiceBetweenDateRequest.getEndDate());
 		 
-		List<InvoiceDetailDto> invoiceDetailDtos=new ArrayList<InvoiceDetailDto>();
-		 
-		for (Invoice invoice : invoices) {
-			InvoiceDetailDto invoiceDetailDto = modelMapper.map(invoice, InvoiceDetailDto.class);
-			invoiceDetailDto.setRentalId(this.rentalDao.getById(invoice.getRental().getId()).getId());
-
-			invoiceDetailDtos.add(invoiceDetailDto);
-		}
+		List<InvoiceDetailDto> invoiceDetailDtos = invoices.stream()
+				.map(invoice -> modelMapper.map(invoice, InvoiceDetailDto.class)).collect(Collectors.toList());
 		
 		return new SuccessDataResult<List<InvoiceDetailDto>>(invoiceDetailDtos);
 	}

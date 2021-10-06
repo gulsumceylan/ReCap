@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.etiya.ReCapProject.business.abstracts.CarImageService;
-import com.etiya.ReCapProject.business.abstracts.CarService;
 import com.etiya.ReCapProject.business.constants.Messages;
 import com.etiya.ReCapProject.core.business.BusinessRules;
 import com.etiya.ReCapProject.core.constants.FilePathConfiguration;
@@ -35,28 +35,20 @@ public class CarImageManager implements CarImageService {
 
 	private CarImageDao carImageDao;
 	private ModelMapper modelMapper;
-	private CarService carService;
 
 	@Autowired
-	public CarImageManager(CarImageDao carImageDao, ModelMapper modelMapper, CarService carService) {
+	public CarImageManager(CarImageDao carImageDao, ModelMapper modelMapper) {
 		super();
 		this.carImageDao = carImageDao;
 		this.modelMapper = modelMapper;
-		this.carService = carService;
 	}
 
 	@Override
 	public DataResult<List<CarImageDetailDto>> getAll() {
 		List<CarImage> carImages = this.carImageDao.findAll();
 
-		List<CarImageDetailDto> carImageDetailDtos = new ArrayList<CarImageDetailDto>();
-
-		for (CarImage carImage : carImages) {
-			CarImageDetailDto carImageDetailDto = modelMapper.map(carImage, CarImageDetailDto.class);
-			carImageDetailDto.setCarName(this.carService.getById(carImage.getCar().getCarId()).getData().getCarName());
-
-			carImageDetailDtos.add(carImageDetailDto);
-		}
+		List<CarImageDetailDto> carImageDetailDtos = carImages.stream().map(carImage -> modelMapper.map(carImage, CarImageDetailDto.class))
+				.collect(Collectors.toList());
 
 		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos);
 	}
@@ -64,8 +56,8 @@ public class CarImageManager implements CarImageService {
 	@Override
 	public DataResult<CarImageDetailDto> getById(int id) {
 		CarImage carImage = this.carImageDao.getById(id);
+		
 		CarImageDetailDto carImageDetailDto = modelMapper.map(carImage, CarImageDetailDto.class);
-		carImageDetailDto.setCarName(this.carService.getById(carImage.getCar().getCarId()).getData().getCarName());
 
 		return new SuccessDataResult<CarImageDetailDto>(carImageDetailDto);
 	}
@@ -74,14 +66,8 @@ public class CarImageManager implements CarImageService {
 	public DataResult<List<CarImageDetailDto>> getByCarId(int carId) {
 		List<CarImage> carImages = this.ifCarImageIsNullAddLogo(carId);
 
-		List<CarImageDetailDto> carImageDetailDtos = new ArrayList<CarImageDetailDto>();
-
-		for (CarImage carImage : carImages) {
-			CarImageDetailDto carImageDetailDto = modelMapper.map(carImage, CarImageDetailDto.class);
-			carImageDetailDto.setCarName(this.carService.getById(carImage.getCar().getCarId()).getData().getCarName());
-
-			carImageDetailDtos.add(carImageDetailDto);
-		}
+		List<CarImageDetailDto> carImageDetailDtos = carImages.stream().map(carImage -> modelMapper.map(carImage, CarImageDetailDto.class))
+				.collect(Collectors.toList());
 
 		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos);
 	}
@@ -96,14 +82,11 @@ public class CarImageManager implements CarImageService {
 			return result;
 		}
 
-		Car car = modelMapper.map(createCarImageRequest, Car.class);
-
 		LocalDate date = LocalDate.now();
 
 		File imagePath = new FileHelper().createFile(createCarImageRequest.getFile());
 
 		CarImage carImage = modelMapper.map(createCarImageRequest, CarImage.class);
-		carImage.setCar(car);
 		carImage.setDate(date);
 		carImage.setImagePath(imagePath.toString());
 
@@ -141,6 +124,7 @@ public class CarImageManager implements CarImageService {
 		return new SuccessResult(Messages.CarImageUpdated);
 	}
 
+	
 	private Result checkIfCarImageLimitExceeded(int carId, int limit) {
 		if (this.carImageDao.getByCar_CarId(carId).size() >= limit) {
 			return new ErrorResult(Messages.Limit);
@@ -179,7 +163,7 @@ public class CarImageManager implements CarImageService {
 
 			CarImage carImage = new CarImage();
 			carImage.setCar(car);
-			carImage.setImagePath(FilePathConfiguration.CAR_IMAGE_DEFAULT_PATH);
+			carImage.setImagePath(FilePathConfiguration.CarImageDefaultPath);
 
 			List<CarImage> carImages = new ArrayList<CarImage>();
 			carImages.add(carImage);

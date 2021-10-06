@@ -23,12 +23,12 @@ import com.etiya.ReCapProject.entities.requests.color.DeleteColorRequest;
 import com.etiya.ReCapProject.entities.requests.color.UpdateColorRequest;
 
 @Service
-public class ColorManager implements ColorService{
+public class ColorManager implements ColorService {
 	private ColorDao colorDao;
 	private ModelMapper modelMapper;
 
 	@Autowired
-	public ColorManager(ColorDao colorDao,ModelMapper modelMapper ) {
+	public ColorManager(ColorDao colorDao, ModelMapper modelMapper) {
 		super();
 		this.colorDao = colorDao;
 		this.modelMapper = modelMapper;
@@ -36,44 +36,46 @@ public class ColorManager implements ColorService{
 
 	@Override
 	public DataResult<List<ColorDetailDto>> getAll() {
-		List<Color> colors= this.colorDao.findAll();
-		 
-		 List<ColorDetailDto> colorDetailDtos= colors.stream().map(color -> modelMapper.map(color, ColorDetailDto.class)).collect(Collectors.toList());
+		List<Color> colors = this.colorDao.findAll();
+
+		List<ColorDetailDto> colorDetailDtos = colors.stream()
+				.map(color -> modelMapper.map(color, ColorDetailDto.class)).collect(Collectors.toList());
+		
 		return new SuccessDataResult<List<ColorDetailDto>>(colorDetailDtos);
 	}
 
 	@Override
 	public DataResult<ColorDetailDto> getById(int colorId) {
 		Color color = this.colorDao.getById(colorId);
-		ColorDetailDto colorDetailDto = modelMapper.map(color,ColorDetailDto.class);
-		
+		ColorDetailDto colorDetailDto = modelMapper.map(color, ColorDetailDto.class);
+
 		return new SuccessDataResult<ColorDetailDto>(colorDetailDto);
 	}
 
 	@Override
 	public Result add(CreateColorRequest createColorRequest) {
-		
+
 		var result = BusinessRules.run(checkColorNameDuplication(createColorRequest.getColorName()));
 
 		if (result != null) {
 			return result;
 		}
-			
+
 		Color color = modelMapper.map(createColorRequest, Color.class);
-		
+
 		this.colorDao.save(color);
 		return new SuccessResult(Messages.ColorAdded);
-		
+
 	}
 
 	@Override
 	public Result delete(DeleteColorRequest deleteColorRequest) {
-		
+
 		Color color = modelMapper.map(deleteColorRequest, Color.class);
-		
+
 		this.colorDao.delete(color);
 		return new SuccessResult(Messages.ColorDeleted);
-		
+
 	}
 
 	@Override
@@ -83,13 +85,13 @@ public class ColorManager implements ColorService{
 		if (result != null) {
 			return result;
 		}
-		
+
 		Color color = modelMapper.map(updateColorRequest, Color.class);
-		
+
 		this.colorDao.save(color);
 		return new SuccessResult(Messages.ColorUpdated);
 	}
-	
+
 	private Result checkColorNameDuplication(String colorName) {
 
 		if (this.colorDao.existsByColorName(colorName)) {
@@ -98,5 +100,5 @@ public class ColorManager implements ColorService{
 		return new SuccessResult();
 
 	}
-	
+
 }

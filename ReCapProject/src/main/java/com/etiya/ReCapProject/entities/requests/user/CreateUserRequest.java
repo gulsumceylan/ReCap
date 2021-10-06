@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Email;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateUserRequest {
 	
+	@JsonIgnore
+	private int id;
 	
 	@NotBlank(message="Boş olamaz")
 	@NotNull
@@ -25,7 +28,7 @@ public class CreateUserRequest {
 	
 	@NotBlank(message="Boş olamaz")
 	@NotNull
-	@Size(min=6, max=10)
+	@Size(min=6)
 	private String password;
 	
 	

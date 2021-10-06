@@ -11,8 +11,7 @@ public class BusinessRules {
 			if(!logic.isSuccess() )
 			{
 				return logic;
-			}
-			
+			}		
 		}
 		
 		return null;

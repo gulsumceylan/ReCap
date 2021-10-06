@@ -17,7 +17,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UpdateIndividualCustomerRequest {
 	
-	
 	@NotNull
 	private int id;
 	

@@ -23,12 +23,12 @@ import com.etiya.ReCapProject.entities.requests.additionalService.DeleteAddition
 import com.etiya.ReCapProject.entities.requests.additionalService.UpdateAdditionalServiceRequest;
 
 @Service
-public class AdditionalServiceManager implements AdditionalServiceService{
+public class AdditionalServiceManager implements AdditionalServiceService {
 	private AdditionalServiceDao additionalServiceDao;
 	private ModelMapper modelMapper;
 
 	@Autowired
-	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao,ModelMapper modelMapper) {
+	public AdditionalServiceManager(AdditionalServiceDao additionalServiceDao, ModelMapper modelMapper) {
 		super();
 		this.additionalServiceDao = additionalServiceDao;
 		this.modelMapper = modelMapper;
@@ -36,49 +36,55 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 
 	@Override
 	public DataResult<List<AdditionalServiceDetailDto>> getAll() {
-		List<AdditionalService> additionalServices= this.additionalServiceDao.findAll();
-		 
-		List<AdditionalServiceDetailDto> additionalServiceDetailDtos =additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
+		List<AdditionalService> additionalServices = this.additionalServiceDao.findAll();
+
+		List<AdditionalServiceDetailDto> additionalServiceDetailDtos = additionalServices.stream()
+				.map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class))
+				.collect(Collectors.toList());
 		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
 	@Override
 	public DataResult<AdditionalServiceDetailDto> getById(int id) {
 		AdditionalService additionalService = this.additionalServiceDao.getById(id);
-		AdditionalServiceDetailDto additionalServiceDetailDto = modelMapper.map(additionalService,AdditionalServiceDetailDto.class);
-		
+		AdditionalServiceDetailDto additionalServiceDetailDto = modelMapper.map(additionalService,
+				AdditionalServiceDetailDto.class);
+
 		return new SuccessDataResult<AdditionalServiceDetailDto>(additionalServiceDetailDto);
 	}
-	
+
 	@Override
 	public DataResult<List<AdditionalServiceDetailDto>> getByRentalId(int rentalId) {
 		
-		List<AdditionalService> additionalServices= this.additionalServiceDao.getByRentals_Id(rentalId);
-		 
-		 List<AdditionalServiceDetailDto> additionalServiceDetailDtos =additionalServices.stream().map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class)).collect(Collectors.toList());
+		List<AdditionalService> additionalServices = this.additionalServiceDao.getByRentals_Id(rentalId);
+
+		List<AdditionalServiceDetailDto> additionalServiceDetailDtos = additionalServices.stream()
+				.map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class))
+				.collect(Collectors.toList());
+		
 		return new SuccessDataResult<List<AdditionalServiceDetailDto>>(additionalServiceDetailDtos);
 	}
 
 	@Override
 	public Result add(CreateAdditionalServiceRequest createAdditionalServiceRequest) {
-		
+
 		var result = BusinessRules.run(checkAdditionalServiceNameDuplication(createAdditionalServiceRequest.getName()));
 
 		if (result != null) {
 			return result;
 		}
-		
-		AdditionalService additionalService = modelMapper.map(createAdditionalServiceRequest,AdditionalService.class);
-		
+
+		AdditionalService additionalService = modelMapper.map(createAdditionalServiceRequest, AdditionalService.class);
 		this.additionalServiceDao.save(additionalService);
+		
 		return new SuccessResult(Messages.AdditionalServiceAdded);
 	}
 
 	@Override
 	public Result delete(DeleteAdditionalServiceRequest deleteAdditionalServiceRequest) {
-		AdditionalService additionalService = modelMapper.map(deleteAdditionalServiceRequest,AdditionalService.class);
-		
+		AdditionalService additionalService = modelMapper.map(deleteAdditionalServiceRequest, AdditionalService.class);
 		this.additionalServiceDao.delete(additionalService);
+		
 		return new SuccessResult(Messages.AdditionalServiceDeleted);
 	}
 
@@ -89,13 +95,13 @@ public class AdditionalServiceManager implements AdditionalServiceService{
 		if (result != null) {
 			return result;
 		}
-		
-		AdditionalService additionalService = modelMapper.map(updateAdditionalServiceRequest,AdditionalService.class);
-		
+
+		AdditionalService additionalService = modelMapper.map(updateAdditionalServiceRequest, AdditionalService.class);
+
 		this.additionalServiceDao.save(additionalService);
 		return new SuccessResult(Messages.AdditionalServiceUpdated);
 	}
-	
+
 	private Result checkAdditionalServiceNameDuplication(String name) {
 
 		if (this.additionalServiceDao.existsByName(name)) {

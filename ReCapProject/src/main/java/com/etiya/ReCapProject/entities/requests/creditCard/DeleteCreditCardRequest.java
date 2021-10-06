@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DeleteCreditCardRequest {
 
- private int creditCardId;
+	private int creditCardId;
  
 }

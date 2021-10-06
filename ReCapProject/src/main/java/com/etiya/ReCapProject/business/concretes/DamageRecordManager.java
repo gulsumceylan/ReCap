@@ -1,7 +1,7 @@
 package com.etiya.ReCapProject.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
 import com.etiya.ReCapProject.dataAccess.abstracts.DamageRecordDao;
-import com.etiya.ReCapProject.entities.concretes.Car;
 import com.etiya.ReCapProject.entities.concretes.DamageRecord;
 import com.etiya.ReCapProject.entities.dtos.DamageRecordDetailDto;
 import com.etiya.ReCapProject.entities.requests.damageRecord.CreateDamageRecordRequest;
@@ -27,29 +26,21 @@ public class DamageRecordManager implements DamageRecordService {
 
 	private DamageRecordDao damageRecordDao;
 	private ModelMapper modelMapper;
-	private CarService carService;
 
 	@Autowired
 	public DamageRecordManager(DamageRecordDao damageRecordDao, ModelMapper modelMapper, CarService carService) {
 		super();
 		this.damageRecordDao = damageRecordDao;
 		this.modelMapper = modelMapper;
-		this.carService = carService;
 	}
 
 	@Override
 	public DataResult<List<DamageRecordDetailDto>> getAll() {
 		List<DamageRecord> damageRecords = this.damageRecordDao.findAll();
 
-		List<DamageRecordDetailDto> damageRecordDetailDtos = new ArrayList<DamageRecordDetailDto>();
-
-		for (DamageRecord damageRecord : damageRecords) {
-			DamageRecordDetailDto damageRecordDetailDto = modelMapper.map(damageRecord, DamageRecordDetailDto.class);
-			damageRecordDetailDto
-					.setCarName(this.carService.getById(damageRecord.getCar().getCarId()).getData().getCarName());
-
-			damageRecordDetailDtos.add(damageRecordDetailDto);
-		}
+		List<DamageRecordDetailDto> damageRecordDetailDtos = damageRecords.stream()
+				.map(damageRecord -> modelMapper.map(damageRecord, DamageRecordDetailDto.class))
+				.collect(Collectors.toList());
 
 		return new SuccessDataResult<List<DamageRecordDetailDto>>(damageRecordDetailDtos);
 	}
@@ -58,19 +49,13 @@ public class DamageRecordManager implements DamageRecordService {
 	public DataResult<DamageRecordDetailDto> getById(int id) {
 		DamageRecord damageRecord = this.damageRecordDao.getById(id);
 		DamageRecordDetailDto damageRecordDetailDto = modelMapper.map(damageRecord, DamageRecordDetailDto.class);
-		damageRecordDetailDto
-				.setCarName(this.carService.getById(damageRecord.getCar().getCarId()).getData().getCarName());
 
 		return new SuccessDataResult<DamageRecordDetailDto>(damageRecordDetailDto);
 	}
 
 	@Override
 	public Result add(CreateDamageRecordRequest createDamageRecordRequest) {
-		Car car = modelMapper.map(createDamageRecordRequest, Car.class);
-
 		DamageRecord damageRecord = modelMapper.map(createDamageRecordRequest, DamageRecord.class);
-		damageRecord.setCar(car);
-
 		this.damageRecordDao.save(damageRecord);
 
 		return new SuccessResult(Messages.DamageRecordAdded);
@@ -86,10 +71,7 @@ public class DamageRecordManager implements DamageRecordService {
 
 	@Override
 	public Result update(UpdateDamageRecordRequest updateDamageRecordRequest) {
-		Car car = modelMapper.map(updateDamageRecordRequest, Car.class);
-
 		DamageRecord damageRecord = modelMapper.map(updateDamageRecordRequest, DamageRecord.class);
-		damageRecord.setCar(car);
 
 		this.damageRecordDao.save(damageRecord);
 		return new SuccessResult(Messages.DamageRecordUpdated);

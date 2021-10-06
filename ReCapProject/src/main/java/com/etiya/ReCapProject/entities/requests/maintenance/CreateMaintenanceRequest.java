@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.Nullable;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateMaintenanceRequest {
-	
+	@JsonIgnore
+	private int maintenanceId;
 	
 	@NotNull
 	private Date maintenanceDate;
@@ -25,8 +27,9 @@ public class CreateMaintenanceRequest {
 	private Date returnDate;
 	
 	@NotNull
-	private int carId;
+	private int carId;	
 	
-	
+//	@JsonIgnore
+//	private boolean isAvailable;
 	
 }
