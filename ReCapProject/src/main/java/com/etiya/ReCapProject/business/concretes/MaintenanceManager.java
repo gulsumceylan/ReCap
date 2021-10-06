@@ -53,7 +53,7 @@ public class MaintenanceManager implements MaintenanceService {
 				.map(maintenance -> modelMapper.map(maintenance, MaintenanceDetailDto.class))
 				.collect(Collectors.toList());
 
-		return new SuccessDataResult<List<MaintenanceDetailDto>>(maintenanceDetailDtos);
+		return new SuccessDataResult<List<MaintenanceDetailDto>>(maintenanceDetailDtos,Messages.MaintenancesListed);
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class MaintenanceManager implements MaintenanceService {
 		MaintenanceDetailDto maintenanceDetailDto = modelMapper.map(maintenance, MaintenanceDetailDto.class);
 		maintenanceDetailDto.setCarName(this.carDao.getById(maintenance.getCar().getCarId()).getCarName());
 
-		return new SuccessDataResult<MaintenanceDetailDto>(maintenanceDetailDto);
+		return new SuccessDataResult<MaintenanceDetailDto>(maintenanceDetailDto,Messages.GetMaintenance);
 	}
 
 	@Override

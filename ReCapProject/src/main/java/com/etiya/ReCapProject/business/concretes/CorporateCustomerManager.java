@@ -47,7 +47,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 				.map(corporateCustomer -> modelMapper.map(corporateCustomer, CorporateCustomerDetailDto.class))
 				.collect(Collectors.toList());
 		
-		return new SuccessDataResult<List<CorporateCustomerDetailDto>>(corporateCustomerDetailDto);
+		return new SuccessDataResult<List<CorporateCustomerDetailDto>>(corporateCustomerDetailDto,Messages.CorporateCustomersListed);
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 		CorporateCustomerDetailDto corporateCustomerDetailDto = modelMapper.map(corporateCustomer,
 				CorporateCustomerDetailDto.class);
 
-		return new SuccessDataResult<CorporateCustomerDetailDto>(corporateCustomerDetailDto);
+		return new SuccessDataResult<CorporateCustomerDetailDto>(corporateCustomerDetailDto,Messages.GetCorparateCustomer);
 	}
 
 	@Override

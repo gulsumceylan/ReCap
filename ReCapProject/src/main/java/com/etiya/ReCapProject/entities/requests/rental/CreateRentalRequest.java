@@ -39,5 +39,5 @@ public class CreateRentalRequest {
 	
 	private int creditCardId;
 	
-	private List<AdditionalServiceForRentalDto> additionalServiceDtos;
+	private List<AdditionalServiceForRentalDto> additionalServiceForRentalDtos;
 }

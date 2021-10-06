@@ -44,7 +44,7 @@ public class CreditCardManager implements CreditCardService {
 		List<CreditCardDetailDto> creditCardDetailDtos = creditCards.stream()
 				.map(creditCard -> modelMapper.map(creditCard, CreditCardDetailDto.class)).collect(Collectors.toList());
 		
-		return new SuccessDataResult<List<CreditCardDetailDto>>(creditCardDetailDtos);
+		return new SuccessDataResult<List<CreditCardDetailDto>>(creditCardDetailDtos,Messages.CreditCardsListed);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class CreditCardManager implements CreditCardService {
 		CreditCard creditCard = this.creditCardDao.getById(creditCardId);
 		CreditCardDetailDto CreditCardDto = modelMapper.map(creditCard, CreditCardDetailDto.class);
 
-		return new SuccessDataResult<CreditCardDetailDto>(CreditCardDto);
+		return new SuccessDataResult<CreditCardDetailDto>(CreditCardDto,Messages.GetCreditCard);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class CreditCardManager implements CreditCardService {
 		List<CreditCardDetailDto> creditCardDetailDtos = creditCards.stream()
 				.map(creditCard -> modelMapper.map(creditCard, CreditCardDetailDto.class)).collect(Collectors.toList());
 
-		return new SuccessDataResult<List<CreditCardDetailDto>>(creditCardDetailDtos);
+		return new SuccessDataResult<List<CreditCardDetailDto>>(creditCardDetailDtos,Messages.CreditCardsOfCustomerListed);
 	}
 
 	@Override
@@ -116,6 +116,7 @@ public class CreditCardManager implements CreditCardService {
 		return new SuccessResult(this.add(createCreditCardRequest).getMessage());
 	}
 
+	
 	private Result checkCreditCardNumber(String creditCardNumber) {
 		String regex = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" + "(?<mastercard>5[1-5][0-9]{14})|"
 				+ "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" + "(?<amex>3[47][0-9]{13})|"
@@ -131,7 +132,7 @@ public class CreditCardManager implements CreditCardService {
 	}
 
 	private Result checkCreditCardCvv(String cvv) {
-		String regex = "^[0-9]{3,3}$";
+		String regex = "^[0-9]{3,4}$";
 
 		Pattern pattern = Pattern.compile(regex);
 

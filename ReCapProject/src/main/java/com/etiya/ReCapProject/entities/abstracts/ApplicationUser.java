@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ApplicationUser extends User{
 
-
+	
 }	
 	
 

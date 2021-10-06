@@ -50,7 +50,7 @@ public class CarImageManager implements CarImageService {
 		List<CarImageDetailDto> carImageDetailDtos = carImages.stream().map(carImage -> modelMapper.map(carImage, CarImageDetailDto.class))
 				.collect(Collectors.toList());
 
-		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos);
+		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos,Messages.CarsImagesListed);
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class CarImageManager implements CarImageService {
 		
 		CarImageDetailDto carImageDetailDto = modelMapper.map(carImage, CarImageDetailDto.class);
 
-		return new SuccessDataResult<CarImageDetailDto>(carImageDetailDto);
+		return new SuccessDataResult<CarImageDetailDto>(carImageDetailDto,Messages.GetCarImage);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class CarImageManager implements CarImageService {
 		List<CarImageDetailDto> carImageDetailDtos = carImages.stream().map(carImage -> modelMapper.map(carImage, CarImageDetailDto.class))
 				.collect(Collectors.toList());
 
-		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos);
+		return new SuccessDataResult<List<CarImageDetailDto>>(carImageDetailDtos,Messages.GetCarImages);
 	}
 
 	@Override

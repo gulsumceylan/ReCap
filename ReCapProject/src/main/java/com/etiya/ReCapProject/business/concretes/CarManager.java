@@ -38,7 +38,7 @@ public class CarManager implements CarService {
 	public DataResult<List<CarDetailDto>> getAvailableCars() {
 		List<Car> cars = this.carDao.getByIsAvailableIsTrue();
 
-		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars));
+		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars),Messages.AvailableCarListed);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class CarManager implements CarService {
 		Car car = this.carDao.getById(carId);
 		CarDetailDto carDetailDtos = modelMapper.map(car, CarDetailDto.class);
 
-		return new SuccessDataResult<CarDetailDto>(carDetailDtos);
+		return new SuccessDataResult<CarDetailDto>(carDetailDtos,Messages.GetCar);
 	}
 
 	@Override
@@ -82,29 +82,31 @@ public class CarManager implements CarService {
 
 	@Override
 	public DataResult<List<CarDetailDto>> getCarDetails() {
-		return new SuccessDataResult<List<CarDetailDto>>(this.carDao.getCarWithBrandAndColorDetails());
+		return new SuccessDataResult<List<CarDetailDto>>(this.carDao.getCarWithBrandAndColorDetails(),Messages.CarsListed);
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getByBrandId(int brandId) {
 		List<Car> cars = this.carDao.getByBrand_BrandId(brandId);
 
-		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars));
+		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars),Messages.CarsListedByBrand);
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getByColorId(int colorId) {
 		List<Car> cars = this.carDao.getByColor_ColorId(colorId);
 
-		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars));
+		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars),Messages.CarsListedByColor);
 	}
 
 	@Override
 	public DataResult<List<CarDetailDto>> getByCity(String city) {
 		List<Car> cars = this.carDao.getByCity(city);
 
-		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars));
+		return new SuccessDataResult<List<CarDetailDto>>(this.convertCarDetailDtos(cars),Messages.CarsListedByCity);
 	}
+	
+	
 	
 	private List<CarDetailDto> convertCarDetailDtos(List<Car> cars) {
  

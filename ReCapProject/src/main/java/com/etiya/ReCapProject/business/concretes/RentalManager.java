@@ -76,24 +76,23 @@ public class RentalManager implements RentalService {
 	@Override
 	public DataResult<List<RentalDetailDto>> getAll() {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-		
-		List<Rental> rentals = this.rentalDao.findAll();
-		
-		List<RentalDetailDto> rentalDetailDtos = rentals.stream()
-				.map(rental -> modelMapper.map(rental, RentalDetailDto.class))
-				.collect(Collectors.toList());
 
-		return new SuccessDataResult<List<RentalDetailDto>>(rentalDetailDtos);
+		List<Rental> rentals = this.rentalDao.findAll();
+
+		List<RentalDetailDto> rentalDetailDtos = rentals.stream()
+				.map(rental -> modelMapper.map(rental, RentalDetailDto.class)).collect(Collectors.toList());
+
+		return new SuccessDataResult<List<RentalDetailDto>>(rentalDetailDtos, Messages.RentalsListed);
 	}
 
 	@Override
-	public DataResult<RentalDetailDto> getById(int id) {	
+	public DataResult<RentalDetailDto> getById(int id) {
 		modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-		
+
 		Rental rental = this.rentalDao.getById(id);
 		RentalDetailDto rentalDetailDto = modelMapper.map(rental, RentalDetailDto.class);
 
-		return new SuccessDataResult<RentalDetailDto>(rentalDetailDto);
+		return new SuccessDataResult<RentalDetailDto>(rentalDetailDto, Messages.GetRental);
 	}
 
 	@Override
@@ -105,7 +104,7 @@ public class RentalManager implements RentalService {
 				checkFindexPointForIndividualCustomer(customer, createRentalRequest.getCarId()),
 				checkReturnFromMaintenance(createRentalRequest.getCarId()),
 				isCreditCardLimitExceeded(createRentalRequest.getCreditCardDetailDto(),
-				this.calculateTotalAmount(createRentalRequest, 500)));
+						this.calculateTotalAmount(createRentalRequest, 500)));
 
 		if (result != null) {
 			return result;
@@ -118,7 +117,7 @@ public class RentalManager implements RentalService {
 		rental.setPickUpKm(car.getKm());
 		rental.setPickUpLocation(car.getCity());
 		rental.setTotalAmount(this.calculateTotalAmount(createRentalRequest, 500));
-		rental.setAdditionalServices(this.convertToAdditionalService(createRentalRequest.getAdditionalServiceDtos()));
+		rental.setAdditionalServices(this.convertToAdditionalService(createRentalRequest.getAdditionalServiceForRentalDtos()));
 
 		this.rentalDao.save(rental);
 
@@ -157,7 +156,7 @@ public class RentalManager implements RentalService {
 		rental.setPickUpKm(car.getKm());
 		rental.setPickUpLocation(car.getCity());
 		rental.setTotalAmount(this.calculateTotalAmount(createRentalRequest, 500));
-		rental.setAdditionalServices(this.convertToAdditionalService(createRentalRequest.getAdditionalServiceDtos()));
+		rental.setAdditionalServices(this.convertToAdditionalService(createRentalRequest.getAdditionalServiceForRentalDtos()));
 
 		this.rentalDao.save(rental);
 
@@ -184,17 +183,15 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest) {
-		Car car = this.carDao.getById(updateRentalRequest.getCarId());
-
 		IndividualCustomer customer = modelMapper.map(updateRentalRequest, IndividualCustomer.class);
 
-		var result = BusinessRules.run(checkReturnFromRental(car.getCarId()),
-				checkFindexPointForIndividualCustomer(customer, updateRentalRequest.getCarId()),
-				checkReturnFromMaintenance(updateRentalRequest.getCarId()));
+		var result = BusinessRules.run(checkFindexPointForIndividualCustomer(customer, updateRentalRequest.getCarId()));
 
 		if (result != null) {
 			return result;
 		}
+
+		Car car = this.carDao.getById(updateRentalRequest.getCarId());
 
 		Rental rental = modelMapper.map(updateRentalRequest, Rental.class);
 		rental.setCar(car);
@@ -214,8 +211,6 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest) {
-		Car car = this.carDao.getById(updateRentalRequest.getCarId());
-
 		CorporateCustomer customer = modelMapper.map(updateRentalRequest, CorporateCustomer.class);
 
 		var result = BusinessRules.run(checkFindexPointForCorporateCustomer(customer, updateRentalRequest.getCarId()));
@@ -223,6 +218,8 @@ public class RentalManager implements RentalService {
 		if (result != null) {
 			return result;
 		}
+
+		Car car = this.carDao.getById(updateRentalRequest.getCarId());
 
 		Rental rental = modelMapper.map(updateRentalRequest, Rental.class);
 		rental.setCar(car);
@@ -256,6 +253,8 @@ public class RentalManager implements RentalService {
 		return new SuccessResult(Messages.CarIsReturned);
 	}
 
+	
+	
 	private Result checkReturnFromRental(int carId) {
 		if (this.rentalDao.existsByIsCarReturnedIsFalseAndCar_CarId(carId)) {
 			return new ErrorResult(Messages.NotAvailableCar);
@@ -308,9 +307,8 @@ public class RentalManager implements RentalService {
 			totalAmount += cityChangeFee;
 		}
 
-		List<AdditionalServiceForRentalDto> additionalServiceDtos = createRentalRequest.getAdditionalServiceDtos();
 
-		for (AdditionalServiceForRentalDto additionalServiceDto : additionalServiceDtos) {
+		for (AdditionalServiceForRentalDto additionalServiceDto : createRentalRequest.getAdditionalServiceForRentalDtos()) {
 
 			AdditionalService additionalService = this.additionalServiceDao.getById(additionalServiceDto.getId());
 
@@ -333,10 +331,10 @@ public class RentalManager implements RentalService {
 		return new SuccessResult();
 	}
 
-	private List<AdditionalService> convertToAdditionalService(List<AdditionalServiceForRentalDto> additionalServiceDtos) {
+	private List<AdditionalService> convertToAdditionalService(List<AdditionalServiceForRentalDto> additionalServiceForRentalDtos) {
 		List<AdditionalService> additionalServices = new ArrayList<AdditionalService>();
 
-		for (AdditionalServiceForRentalDto additionalServicedto : additionalServiceDtos) {
+		for (AdditionalServiceForRentalDto additionalServicedto : additionalServiceForRentalDtos) {
 			additionalServices.add(this.additionalServiceDao.getById(additionalServicedto.getId()));
 		}
 
