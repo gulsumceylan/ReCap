@@ -108,11 +108,11 @@ public class CreditCardManager implements CreditCardService {
 	}
 
 	@Override
-	public Result saveCardInformation(CreditCardDetailDto creditCardDetailDto, int customerId) {
+	public Result saveCardInformation(CreditCardDetailDto creditCardDetailDto, int customerId) {	
 		CreateCreditCardRequest createCreditCardRequest = modelMapper.map(creditCardDetailDto,
 				CreateCreditCardRequest.class);
 		createCreditCardRequest.setCustomerId(customerId);
-
+		
 		return new SuccessResult(this.add(createCreditCardRequest).getMessage());
 	}
 
@@ -154,6 +154,24 @@ public class CreditCardManager implements CreditCardService {
 		if (!matcher.matches()) {
 			return new ErrorResult(Messages.InvalidCreditCard);
 		}
+		return new SuccessResult();
+	}
+	
+	
+	@Override
+	public Result checkCreditCardFormatAndId(CreditCardDetailDto creditCardDetailDto,int creditcardId) {
+		if (this.creditCardDao.existsByCreditCardId(creditcardId)) {
+			return new SuccessResult();
+		}
+		
+		var result = BusinessRules.run(checkCreditCardNumber(creditCardDetailDto.getCardNumber()),
+				checkCreditCardCvv(creditCardDetailDto.getCvv()),
+				checkCreditCardExpiryDate(creditCardDetailDto.getExpiryDate()));
+
+		if (result != null) {
+			return result;
+		}
+			
 		return new SuccessResult();
 	}
 

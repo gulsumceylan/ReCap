@@ -19,7 +19,7 @@ public interface RentalService {
 	Result delete(DeleteRentalRequest deleteRentalRequest);
 	Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest);
 	Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest);	
-	Result validateCarReturned (CarReturnedRequest carReturnedRequest);
+	Result validateCarReturned(CarReturnedRequest carReturnedRequest);
 	
 	
 }
