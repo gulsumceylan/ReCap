@@ -13,7 +13,7 @@ import lombok.Setter;
 
 public class DeleteRentalRequest {
 	
-	private int id;
+	private int rentalId;
 	
 	
 	

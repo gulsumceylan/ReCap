@@ -17,7 +17,7 @@ import lombok.Setter;
 public class UpdateCarImageRequest {
 	
 	@NotNull
-	private int id;
+	private int carImageId;
 	
 	private int carId;
 

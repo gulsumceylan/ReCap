@@ -29,7 +29,7 @@ public class CarImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private int carImageId;
 	
 	@Column(name="image_path")
 	private String imagePath;

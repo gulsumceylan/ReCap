@@ -19,9 +19,7 @@ import lombok.Setter;
 public class UpdateRentalRequest {
 	
 	@NotNull
-	private int id;
-
-	private int customerId;
+	private int rentalId;
 	
 	private int carId;
 	

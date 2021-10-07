@@ -33,7 +33,7 @@ public class Rental {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private int rentalId;
 	
 	@Column(name="rent_date")
 	private Date rentDate;

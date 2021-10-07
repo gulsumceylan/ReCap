@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateCarImageRequest {
 	@JsonIgnore
-	private int id;
+	private int carImageId;
 	
 	@NotNull
 	private int carId;

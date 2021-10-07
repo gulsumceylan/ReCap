@@ -180,8 +180,9 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public Result updateForIndividualCustomer(UpdateRentalRequest updateRentalRequest) {
-		IndividualCustomer customer = modelMapper.map(updateRentalRequest, IndividualCustomer.class);
-
+		Rental rental = this.rentalDao.getById(updateRentalRequest.getRentalId());
+		IndividualCustomer customer =this.individualCustomerDao.getById(rental.getCustomer().getId());
+		
 		var result = BusinessRules.run(checkFindexPointForIndividualCustomer(customer, updateRentalRequest.getCarId()));
 
 		if (result != null) {
@@ -190,10 +191,10 @@ public class RentalManager implements RentalService {
 
 		Car car = this.carDao.getById(updateRentalRequest.getCarId());
 
-		Rental rental = modelMapper.map(updateRentalRequest, Rental.class);
 		rental.setCar(car);
 		rental.setPickUpKm(car.getKm());
 		rental.setPickUpLocation(car.getCity());
+		rental.setReturnLocation(updateRentalRequest.getReturnLocation());
 		rental.setAdditionalServices(this.convertToAdditionalService(updateRentalRequest.getAdditionalServiceDtos()));
 
 		rental.setCarReturned(true);
@@ -205,8 +206,9 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public Result updateForCorporateCustomer(UpdateRentalRequest updateRentalRequest) {
-		CorporateCustomer customer = modelMapper.map(updateRentalRequest, CorporateCustomer.class);
-
+		Rental rental = this.rentalDao.getById(updateRentalRequest.getRentalId());
+		CorporateCustomer customer =this.corporateCustomerDao.getById(rental.getCustomer().getId());
+		
 		var result = BusinessRules.run(checkFindexPointForCorporateCustomer(customer, updateRentalRequest.getCarId()));
 
 		if (result != null) {
@@ -215,10 +217,10 @@ public class RentalManager implements RentalService {
 
 		Car car = this.carDao.getById(updateRentalRequest.getCarId());
 
-		Rental rental = modelMapper.map(updateRentalRequest, Rental.class);
 		rental.setCar(car);
 		rental.setPickUpKm(car.getKm());
 		rental.setPickUpLocation(car.getCity());
+		rental.setReturnLocation(updateRentalRequest.getReturnLocation());
 		rental.setAdditionalServices(this.convertToAdditionalService(updateRentalRequest.getAdditionalServiceDtos()));
 
 		rental.setCarReturned(true);

@@ -56,9 +56,9 @@ public class CarImagesController {
 	}
 	
 	@PostMapping("/update")
-    public Result update(@RequestParam("CarImageId") int id, MultipartFile file) throws IOException {
+    public Result update(@RequestParam("carImageId") int id, MultipartFile file) throws IOException {
         UpdateCarImageRequest updateCarImageRequest = new UpdateCarImageRequest();
-        updateCarImageRequest.setId(id);
+        updateCarImageRequest.setCarImageId(id);
         updateCarImageRequest.setFile(file);
         return this.carImageService.update(updateCarImageRequest);
     }

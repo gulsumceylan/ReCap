@@ -18,7 +18,6 @@ import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.entities.dtos.ApplicationUserDetailDto;
 import com.etiya.ReCapProject.entities.requests.user.CreateUserRequest;
 import com.etiya.ReCapProject.entities.requests.user.DeleteUserRequest;
-import com.etiya.ReCapProject.entities.requests.user.UpdateUserRequest;
 
 @RestController
 @RequestMapping("/api/users")
@@ -47,11 +46,6 @@ public class UsersController {
 	@GetMapping("/getById")
 	public DataResult<ApplicationUserDetailDto> getById(int userId){
 		return this.userService.getById(userId);
-	}
-	
-	@PostMapping("/update")
-	public Result update(@Valid @RequestBody UpdateUserRequest updateUserRequest) {
-		return this.userService.update(updateUserRequest);
 	}
 	
 	@PutMapping("/delete")

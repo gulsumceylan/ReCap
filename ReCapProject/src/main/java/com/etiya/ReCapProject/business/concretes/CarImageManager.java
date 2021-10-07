@@ -22,6 +22,7 @@ import com.etiya.ReCapProject.core.utilities.results.ErrorResult;
 import com.etiya.ReCapProject.core.utilities.results.Result;
 import com.etiya.ReCapProject.core.utilities.results.SuccessDataResult;
 import com.etiya.ReCapProject.core.utilities.results.SuccessResult;
+import com.etiya.ReCapProject.dataAccess.abstracts.CarDao;
 import com.etiya.ReCapProject.dataAccess.abstracts.CarImageDao;
 import com.etiya.ReCapProject.entities.concretes.Car;
 import com.etiya.ReCapProject.entities.concretes.CarImage;
@@ -35,12 +36,14 @@ public class CarImageManager implements CarImageService {
 
 	private CarImageDao carImageDao;
 	private ModelMapper modelMapper;
+	private CarDao carDao;
 
 	@Autowired
-	public CarImageManager(CarImageDao carImageDao, ModelMapper modelMapper) {
+	public CarImageManager(CarImageDao carImageDao, ModelMapper modelMapper,CarDao carDao) {
 		super();
 		this.carImageDao = carImageDao;
 		this.modelMapper = modelMapper;
+		this.carDao=carDao;
 	}
 
 	@Override
@@ -54,8 +57,8 @@ public class CarImageManager implements CarImageService {
 	}
 
 	@Override
-	public DataResult<CarImageDetailDto> getById(int id) {
-		CarImage carImage = this.carImageDao.getById(id);
+	public DataResult<CarImageDetailDto> getById(int carImageId) {
+		CarImage carImage = this.carImageDao.getById(carImageId);
 		
 		CarImageDetailDto carImageDetailDto = modelMapper.map(carImage, CarImageDetailDto.class);
 
@@ -96,7 +99,7 @@ public class CarImageManager implements CarImageService {
 
 	@Override
 	public Result delete(DeleteCarImageRequest deleteCarImageRequest) {
-		CarImage carImage = modelMapper.map(deleteCarImageRequest, CarImage.class);
+		CarImage carImage = this.carImageDao.getById(deleteCarImageRequest.getCarImageId());
 
 		this.carImageDao.delete(carImage);
 		return new SuccessResult(Messages.CarImageDeleted);
@@ -116,7 +119,7 @@ public class CarImageManager implements CarImageService {
 
 		File imagePath = new FileHelper().createFile(updateCarImageRequest.getFile());
 
-		CarImage carImage = modelMapper.map(updateCarImageRequest, CarImage.class);
+		CarImage carImage = this.carImageDao.getById(updateCarImageRequest.getCarImageId());
 		carImage.setImagePath(imagePath.toString());
 		carImage.setDate(date);
 
@@ -158,16 +161,16 @@ public class CarImageManager implements CarImageService {
 	private List<CarImage> ifCarImageIsNullAddLogo(int carId) {
 		if (this.carImageDao.getByCar_CarId(carId).isEmpty()) {
 
-			Car car = new Car();
-			car.setCarId(carId);
+			Car car = this.carDao.getById(carId);
+			car.setCarName(car.getCarName());
 
+			List<CarImage> carImages = new ArrayList<CarImage>();
+			
 			CarImage carImage = new CarImage();
 			carImage.setCar(car);
 			carImage.setImagePath(FilePathConfiguration.CarImageDefaultPath);
-
-			List<CarImage> carImages = new ArrayList<CarImage>();
+			
 			carImages.add(carImage);
-
 			return carImages;
 
 		}

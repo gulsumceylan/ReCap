@@ -13,7 +13,7 @@ import com.etiya.ReCapProject.entities.requests.carImage.UpdateCarImageRequest;
 public interface CarImageService {
 	
 	DataResult<List<CarImageDetailDto>> getAll();
-	DataResult<CarImageDetailDto> getById(int id);
+	DataResult<CarImageDetailDto> getById(int carImageId);
 	Result add(CreateCarImageRequest createCarImageRequest) throws IOException;
 	Result delete(DeleteCarImageRequest deleteCarImageRequest);
 	Result update(UpdateCarImageRequest updateCarImageRequest)throws IOException;

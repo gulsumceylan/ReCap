@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CreateRentalRequest {
 	@JsonIgnore
-	private int id;
+	private int rentalId;
 	
 	private int carId;
 	

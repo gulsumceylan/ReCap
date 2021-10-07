@@ -57,7 +57,7 @@ public class AdditionalServiceManager implements AdditionalServiceService {
 	@Override
 	public DataResult<List<AdditionalServiceDetailDto>> getByRentalId(int rentalId) {
 		
-		List<AdditionalService> additionalServices = this.additionalServiceDao.getByRentals_Id(rentalId);
+		List<AdditionalService> additionalServices = this.additionalServiceDao.getByRentals_RentalId(rentalId);
 
 		List<AdditionalServiceDetailDto> additionalServiceDetailDtos = additionalServices.stream()
 				.map(additionalService -> modelMapper.map(additionalService, AdditionalServiceDetailDto.class))

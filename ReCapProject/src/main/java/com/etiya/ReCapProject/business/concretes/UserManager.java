@@ -18,7 +18,6 @@ import com.etiya.ReCapProject.entities.abstracts.ApplicationUser;
 import com.etiya.ReCapProject.entities.dtos.ApplicationUserDetailDto;
 import com.etiya.ReCapProject.entities.requests.user.CreateUserRequest;
 import com.etiya.ReCapProject.entities.requests.user.DeleteUserRequest;
-import com.etiya.ReCapProject.entities.requests.user.UpdateUserRequest;
 @Service
 public class UserManager implements UserService {
 
@@ -66,12 +65,6 @@ public class UserManager implements UserService {
 		return new SuccessResult(Messages.UserDeleted);
 	}
 
-	@Override
-	public Result update(UpdateUserRequest updateUserRequest) {
-		ApplicationUser user = modelMapper.map(updateUserRequest, ApplicationUser.class);
-		
-		this.userDao.save(user);
-		return new SuccessResult(Messages.UserUpdated);
-	}
+
 
 }
