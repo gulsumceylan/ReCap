@@ -21,6 +21,4 @@ public class UpdateAdditionalServiceRequest {
 	
 	private double dailyPrice;
 
-	private int rentalId;
-	
 }
